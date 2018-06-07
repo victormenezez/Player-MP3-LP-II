@@ -1,15 +1,28 @@
 
 package audioplayer;
 
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author joaovitordeon
  */
 public class InterfaceGrafica extends javax.swing.JFrame {
 
-    
+    private final DefaultListModel dlm1;
+    private final DefaultListModel dlm2;
+   
     public InterfaceGrafica() {
+       
+        dlm1 = new DefaultListModel();
+        dlm2 = new DefaultListModel(); 
+            
         initComponents();
+        
         this.setVisible(true);
     }
 
@@ -18,7 +31,6 @@ public class InterfaceGrafica extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
         playBtn = new javax.swing.JButton();
         pauseBtn = new javax.swing.JButton();
         nextBtn = new javax.swing.JButton();
@@ -27,7 +39,7 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         musicsLabel = new javax.swing.JLabel();
         playlistsLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        playlistsList = new javax.swing.JList<>();
         progressBar = new javax.swing.JProgressBar();
         addMusicBtn = new javax.swing.JButton();
         addDirecBtn = new javax.swing.JButton();
@@ -36,12 +48,10 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         signOutBtn = new javax.swing.JButton();
         userNameLabel = new javax.swing.JLabel();
 
-        jTextField1.setText("jTextField1");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AudioPlayer");
-        setPreferredSize(new java.awt.Dimension(900, 400));
 
+        playBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/images/Play.gif")); // NOI18N
         playBtn.setText("Play");
         playBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,6 +59,7 @@ public class InterfaceGrafica extends javax.swing.JFrame {
             }
         });
 
+        pauseBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/images/Pause.png")); // NOI18N
         pauseBtn.setText("Pause");
         pauseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,11 +74,6 @@ public class InterfaceGrafica extends javax.swing.JFrame {
             }
         });
 
-        musicsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "guns n roses", "nirvana", "metalica", "sublime", "oasis" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         musicsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         jScrollPane1.setViewportView(musicsList);
 
@@ -77,13 +83,10 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         playlistsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         playlistsLabel.setText("Playlists");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "forro", "sertanejo", "rock", "pop", "internacional", "nacional" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList1);
+        playlistsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane2.setViewportView(playlistsList);
 
+        addMusicBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/images/Open.png")); // NOI18N
         addMusicBtn.setText("Add Music");
         addMusicBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,33 +134,6 @@ public class InterfaceGrafica extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addMusicBtn)
-                            .addComponent(addDirecBtn))
-                        .addGap(75, 75, 75)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(musicsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(addPlaylistBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                            .addComponent(playlistsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, Short.MAX_VALUE)
-                                .addComponent(profileImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(signOutBtn)
-                                .addGap(44, 44, 44))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(playBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pauseBtn)
@@ -165,31 +141,61 @@ public class InterfaceGrafica extends javax.swing.JFrame {
                         .addComponent(nextBtn)
                         .addGap(21, 21, 21)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(addDirecBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addMusicBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(75, 75, 75)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(musicsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(playlistsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(profileImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userNameLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(signOutBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addPlaylistBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(musicsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(playlistsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(profileImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(musicsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(playlistsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(signOutBtn))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(profileImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(signOutBtn)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2)))))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addMusicBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addDirecBtn)))
-                .addGap(4, 4, 4)
+                        .addComponent(addDirecBtn)
+                        .addGap(64, 64, 64)))
+                .addGap(28, 28, 28)
                 .addComponent(addPlaylistBtn)
-                .addGap(45, 45, 45)
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(playBtn)
@@ -206,12 +212,36 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addDirecBtnActionPerformed
 
+    
     private void addMusicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMusicBtnActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Specify a file to save");
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            //pegar esse arquivo e jogar na playlist e usar o getName para mostrar na playlist
+            //System.out.println( selectedFile.getName());
+            this.dlm1.addElement(selectedFile.getName());
+            this.musicsList.setModel(dlm1);
+        
+        }
     }//GEN-LAST:event_addMusicBtnActionPerformed
 
     private void playBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playBtnActionPerformed
-        // TODO add your handling code here:
+       
+        if(null != musicsList.getSelectedValue()){
+            try {
+                String way ="/home/joaovitordeon/NetBeansProjects/audioplayer/src/"+musicsList.getSelectedValue();
+                File musicFile = new File(way);
+                m = new Musics(musicFile);
+                m.play();
+
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }//GEN-LAST:event_playBtnActionPerformed
 
     private void pauseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseBtnActionPerformed
@@ -226,22 +256,23 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addPlaylistBtnActionPerformed
 
-  
-
+    
+    
+    private Musics m;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addDirecBtn;
     private javax.swing.JButton addMusicBtn;
     private javax.swing.JButton addPlaylistBtn;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel musicsLabel;
     private javax.swing.JList<String> musicsList;
     private javax.swing.JButton nextBtn;
     private javax.swing.JButton pauseBtn;
     private javax.swing.JButton playBtn;
     private javax.swing.JLabel playlistsLabel;
+    private javax.swing.JList<String> playlistsList;
     private javax.swing.JPanel profileImg;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JButton signOutBtn;
