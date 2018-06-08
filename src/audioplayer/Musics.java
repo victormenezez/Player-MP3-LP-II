@@ -37,8 +37,6 @@ public class Musics extends Thread{
                     }  
                 }  
             }.start();
-            
-      
        
     }
     public void stopMusic() throws Exception{

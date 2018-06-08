@@ -1,7 +1,6 @@
 
 package audioplayer;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -11,11 +10,13 @@ import java.io.IOException;
 public class Audioplayer {
    
     public static void main(String[] args) throws IOException, Exception {
-            InterfaceGrafica ig= new InterfaceGrafica();
-
-
+        //InterfaceGrafica ig= new InterfaceGrafica();
         
-        
+        JSONWriter jw;
+        jw = new JSONWriter();
+            
+        JSONReader jr;
+        jr = new JSONReader();
         
     }
     
