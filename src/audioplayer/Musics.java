@@ -1,32 +1,50 @@
 
 package audioplayer;
 
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
+import javazoom.jl.player.advanced.AdvancedPlayer;
 /**
  *
  * @author joaovitordeon
  */
 public class Musics extends Thread{
-    private final File music;
-    private Player player;
+    private final String music;
+    private AdvancedPlayer player;
  
-    public Musics(File music) throws Exception{
+
+ 
+    public Musics(String music) throws Exception{
+       
         this.music = music;
     
-    }    
-    public void play() throws Exception{
-        
-        FileInputStream stream = new FileInputStream(music);
-        BufferedInputStream buffer = new BufferedInputStream(stream);
-        this.player = new Player (buffer);
-        System.out.println("Tocando musica...");
-        this.player.play();
-        System.out.println("Musica terminada...");
+    }
+    
+    public void playMusic() throws Exception{
+
+       
+        new Thread() { 
+                @Override
+                public void run() {  
+                    try {                          
+                       FileInputStream stream = new FileInputStream(music);
+                       player = new AdvancedPlayer(stream);
+                       player.play();  
+                       player.close();
+                        
+                    } catch (FileNotFoundException | JavaLayerException e) {  
+                    }  
+                }  
+            }.start();
+            
+      
        
     }
+    public void stopMusic() throws Exception{
+        if (this.player != null) {
+            this.player.close();
+        }
+    }    
+
 }
