@@ -216,16 +216,17 @@ public class InterfaceGrafica extends javax.swing.JFrame {
     
     private void addMusicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMusicBtnActionPerformed
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Specify a file to save");
+        fileChooser.setDialogTitle("Specify a file to add");
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-            //pegar esse arquivo e jogar na playlist e usar o getName para mostrar na playlist
+            //pegar esse arquivo e jogar na playlist e usar o getName para mostrar o nome na playlist
             //System.out.println( selectedFile.getName());
             this.dlm1.addElement(selectedFile.getName());
             this.musicsList.setModel(dlm1);
+            
         
         }
     }//GEN-LAST:event_addMusicBtnActionPerformed

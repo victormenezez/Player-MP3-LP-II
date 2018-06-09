@@ -5,7 +5,9 @@
         <group>
             <file>file:/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/audioplayer/InterfaceGrafica.java</file>
             <file>file:/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/audioplayer/Audioplayer.java</file>
+            <file>file:/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/audioplayer/JSONWriter.java</file>
             <file>file:/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/audioplayer/Musics.java</file>
+            <file>file:/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/audioplayer/JSONReader.java</file>
         </group>
     </open-files>
 </project-private>

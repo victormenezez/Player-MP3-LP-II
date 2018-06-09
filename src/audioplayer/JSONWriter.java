@@ -3,8 +3,10 @@ package audioplayer;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
  
 import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 /**
  *
  * @author joaovitordeon
@@ -12,31 +14,37 @@ import org.json.simple.JSONObject;
 
  
 public class JSONWriter{
- 
+        private JSONArray jsonArray = new JSONArray();
+        private JSONObject jsonObject = new JSONObject();
+         
+        private FileWriter writeFile = null;
        
-        public JSONWriter(){
-        //Cria um Objeto JSON
-        JSONObject jsonObject = new JSONObject();
-         
-        FileWriter writeFile = null;
-         
-        //Armazena dados em um Objeto JSON
-        jsonObject.put("nome", "Allan");
-        jsonObject.put("sobrenome", "Romanato");
-        jsonObject.put("pais", "Brasil");
-        jsonObject.put("estado", "SP");
-         
+        public JSONWriter(String name,String password,Boolean vip,ArrayList<String> musics ){
+        
+        //chama uma instancia da classe que le o arquivo JSON
+        JSONReader jw = new JSONReader();
+        jsonArray = jw.getJSON();
+        
+        
+        jsonObject.put("username", name);
+        jsonObject.put("password", password);
+        jsonObject.put("VIP",vip);
+        jsonObject.put("musics",musics);
+        
+        //adiciona um JSONObject(usuario) no final
+        jsonArray.add(jsonObject);
+        
         try{
             writeFile = new FileWriter("saida.json");
-            //Escreve no arquivo conteudo do Objeto JSON
-            writeFile.write(jsonObject.toJSONString());
+            jsonArray.writeJSONString(jsonArray,writeFile);
             writeFile.close();
+            
         }
         catch(IOException e){
             e.printStackTrace();
         }
-        //Imprimne na Tela o Objeto JSON para vizualização
-        System.out.println(jsonObject);
+       
+        //System.out.println(jsonObject);
           
     }
  
