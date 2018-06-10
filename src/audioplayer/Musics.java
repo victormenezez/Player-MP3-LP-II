@@ -23,7 +23,6 @@ public class Musics extends Thread{
     
     public void playMusic() throws Exception{
 
-       
         new Thread() { 
                 @Override
                 public void run() {  
@@ -36,8 +35,7 @@ public class Musics extends Thread{
                     } catch (FileNotFoundException | JavaLayerException e) {  
                     }  
                 }  
-            }.start();
-       
+            }.start();       
     }
     public void stopMusic() throws Exception{
         if (this.player != null) {

@@ -1,31 +1,46 @@
 
 package audioplayer;
 
+import static audioplayer.Audioplayer.deleteMusic;
+import static audioplayer.Audioplayer.getMusics;
+import static audioplayer.Audioplayer.insertMusic;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author joaovitordeon
  */
 public class InterfaceGrafica extends javax.swing.JFrame {
-
-    private final DefaultListModel dlm1;
-    private final DefaultListModel dlm2;
    
-    public InterfaceGrafica() {
+    public InterfaceGrafica() throws IOException, FileNotFoundException, ParseException {
        
-        dlm1 = new DefaultListModel();
-        dlm2 = new DefaultListModel(); 
-            
         initComponents();
         
+        dlm1 = new DefaultListModel();
+        dlm2 = new DefaultListModel(); 
+        
+        ArrayList<String> usermusics = getMusics("pedro");
+        
+        if(getMusics("pedro") != null){
+            for (String s : usermusics) {
+                this.dlm1.addElement(s);
+            }
+        
+            this.musicsList.setModel(dlm1);
+        }
+        
         this.setVisible(true);
+        
     }
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -47,11 +62,12 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         signOutBtn = new javax.swing.JButton();
         userNameLabel = new javax.swing.JLabel();
         profileImage = new javax.swing.JLabel();
+        deleteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AudioPlayer");
         setBackground(new java.awt.Color(255, 115, 138));
-        setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         setFocusCycleRoot(false);
         setForeground(java.awt.Color.white);
 
@@ -84,6 +100,11 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         });
 
         musicsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        musicsList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                musicsListValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(musicsList);
 
         musicsLabel.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
@@ -132,6 +153,14 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         profileImage.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/images/image2.png")); // NOI18N
         profileImage.setPreferredSize(new java.awt.Dimension(170, 170));
 
+        deleteBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        deleteBtn.setText("Delete Music");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,7 +179,8 @@ public class InterfaceGrafica extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(addDirecBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addMusicBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(addMusicBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(musicsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -180,7 +210,9 @@ public class InterfaceGrafica extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(41, 41, 41)
                                 .addComponent(addMusicBtn)
-                                .addGap(18, 18, 18)
+                                .addGap(32, 32, 32)
+                                .addComponent(deleteBtn)
+                                .addGap(35, 35, 35)
                                 .addComponent(addDirecBtn))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(profileImage, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,21 +245,26 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addDirecBtnActionPerformed
 
-    
     private void addMusicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMusicBtnActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Specify a file to add");
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-            //pegar esse arquivo e jogar na playlist e usar o getName para mostrar o nome na playlist
-            //System.out.println( selectedFile.getName());
-            this.dlm1.addElement(selectedFile.getName());
-            this.musicsList.setModel(dlm1);
-            
-        
+            try {
+                File selectedFile = fileChooser.getSelectedFile();
+                //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                //pegar esse arquivo e jogar na playlist e usar o getName para mostrar o nome na playlist
+                //System.out.println( selectedFile.getName());
+                this.dlm1.addElement(selectedFile.getName());
+                this.musicsList.setModel(dlm1);
+                //adiciona a musica no json
+                insertMusic("pedro",selectedFile.getName());
+                
+            } catch (IOException | ParseException ex) {
+               ex.printStackTrace();
+            }
+           
         }
     }//GEN-LAST:event_addMusicBtnActionPerformed
 
@@ -263,14 +300,35 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addPlaylistBtnActionPerformed
 
+    private void musicsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_musicsListValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_musicsListValueChanged
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        if(null != musicsList.getSelectedValue()){
+            try {
+              
+               deleteMusic("pedro",musicsList.getSelectedValue());
+               this.dlm1.removeElement(musicsList.getSelectedValue());
+               this.musicsList.setModel(dlm1);
+
+            } catch (IOException | ParseException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
     
     
     private Musics m;
-    
+    private DefaultListModel dlm1;
+    private DefaultListModel dlm2;
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addDirecBtn;
     private javax.swing.JButton addMusicBtn;
     private javax.swing.JButton addPlaylistBtn;
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel musicsLabel;
