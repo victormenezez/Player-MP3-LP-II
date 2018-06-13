@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/audioplayer/InterfaceGrafica.java</file>
-            <file>file:/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/audioplayer/Audioplayer.java</file>
-            <file>file:/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/audioplayer/JSONWriter.java</file>
-            <file>file:/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/audioplayer/Musics.java</file>
-            <file>file:/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/audioplayer/JSONReader.java</file>
+            <file>file:/home/victor/NetBeansProjects/Player-MP3-LP-II/src/audioplayer/Audioplayer.java</file>
+            <file>file:/home/victor/NetBeansProjects/Player-MP3-LP-II/src/screens/InitialScreen.java</file>
+            <file>file:/home/victor/NetBeansProjects/Player-MP3-LP-II/src/data/users.json</file>
+            <file>file:/home/victor/NetBeansProjects/Player-MP3-LP-II/src/screens/LoginScreen.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,6 +1,7 @@
 
-package audioplayer;
+package screens;
 
+import audioplayer.Musics;
 import static audioplayer.Audioplayer.deleteMusic;
 import static audioplayer.Audioplayer.getMusics;
 import static audioplayer.Audioplayer.insertMusic;
@@ -13,17 +14,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author joaovitordeon
  */
-public class InterfaceGrafica extends javax.swing.JFrame {
-   
-    public InterfaceGrafica() throws IOException, FileNotFoundException, ParseException {
+public class InitialScreen extends javax.swing.JFrame {
+    boolean vip;
+    public InitialScreen(boolean vip) throws IOException, FileNotFoundException, ParseException {
        
+        this.vip = vip;
         initComponents();
+        if(!vip)
+            addPlaylistBtn.setEnabled(false);
         
         dlm1 = new DefaultListModel();
         dlm2 = new DefaultListModel(); 
@@ -72,7 +77,6 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         setForeground(java.awt.Color.white);
 
         playBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        playBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/images/Play.gif")); // NOI18N
         playBtn.setText("Play");
         playBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,7 +85,6 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         });
 
         pauseBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        pauseBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/images/Pause.png")); // NOI18N
         pauseBtn.setText("Pause");
         pauseBtn.setEnabled(false);
         pauseBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +122,6 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         jScrollPane2.setViewportView(playlistsList);
 
         addMusicBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        addMusicBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/images/Open.png")); // NOI18N
         addMusicBtn.setText("Add Music");
         addMusicBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,12 +147,16 @@ public class InterfaceGrafica extends javax.swing.JFrame {
 
         signOutBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         signOutBtn.setText("Sing out");
+        signOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signOutBtnActionPerformed(evt);
+            }
+        });
 
         userNameLabel.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
         userNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         userNameLabel.setText("User name");
 
-        profileImage.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/Documentos/Player-MP3-LP-II/src/images/image2.png")); // NOI18N
         profileImage.setPreferredSize(new java.awt.Dimension(170, 170));
 
         deleteBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
@@ -239,6 +245,7 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addDirecBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDirecBtnActionPerformed
@@ -297,7 +304,7 @@ public class InterfaceGrafica extends javax.swing.JFrame {
     }//GEN-LAST:event_nextBtnActionPerformed
 
     private void addPlaylistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlaylistBtnActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_addPlaylistBtnActionPerformed
 
     private void musicsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_musicsListValueChanged
@@ -318,7 +325,14 @@ public class InterfaceGrafica extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
-    
+    private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutBtnActionPerformed
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog (null, "Deseja sair do sistema?", "",dialogButton);
+        if(dialogResult == JOptionPane.YES_OPTION){
+            LoginScreen login = new LoginScreen();
+            dispose();
+        }
+    }//GEN-LAST:event_signOutBtnActionPerformed
     
     private Musics m;
     private DefaultListModel dlm1;
