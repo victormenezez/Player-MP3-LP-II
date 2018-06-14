@@ -2,16 +2,12 @@
 package screens;
 
 import audioplayer.Musics;
-import static audioplayer.Audioplayer.deleteMusic;
-import static audioplayer.Audioplayer.getMusics;
-import static audioplayer.Audioplayer.insertMusic;
+import static audioplayer.Musics.getMusics;
+import static audioplayer.Musics.insertMusic;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -37,9 +33,9 @@ public class InitialScreen extends javax.swing.JFrame {
         dlm1 = new DefaultListModel();
         dlm2 = new DefaultListModel(); 
         
-        ArrayList<String> usermusics = getMusics("pedro");
+        ArrayList<String> usermusics = getMusics();
         
-        if(getMusics("pedro") != null){
+        if(getMusics() != null){
             for (String s : usermusics) {
                 this.dlm1.addElement(s);
             }
@@ -48,7 +44,6 @@ public class InitialScreen extends javax.swing.JFrame {
         }
         
         this.setVisible(true);
-        
     }
     
     @SuppressWarnings("unchecked")
@@ -258,7 +253,7 @@ public class InitialScreen extends javax.swing.JFrame {
 
     private void addMusicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMusicBtnActionPerformed
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Specify a file to add");
+        fileChooser.setDialogTitle("Escolha a música a ser adicionada");
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
@@ -270,10 +265,10 @@ public class InitialScreen extends javax.swing.JFrame {
                 this.dlm1.addElement(selectedFile.getName());
                 this.musicsList.setModel(dlm1);
                 //adiciona a musica no json
-                insertMusic("pedro",selectedFile.getName());
+                insertMusic(selectedFile.getName());
                 
             } catch (IOException | ParseException ex) {
-               ex.printStackTrace();
+                System.out.println(ex);
             }
            
         }
@@ -283,7 +278,8 @@ public class InitialScreen extends javax.swing.JFrame {
        
         if(null != musicsList.getSelectedValue()){
             try {
-                String way ="/home/joaovitordeon/NetBeansProjects/audioplayer/src/"+musicsList.getSelectedValue();
+                String way ="/home/joaovitordeon/NetBeansProjects/audioplayer/src/"
+                        +musicsList.getSelectedValue();
                 m = new Musics(way);
                 m.playMusic();
                 btn_pause.setEnabled(true);
@@ -317,15 +313,15 @@ public class InitialScreen extends javax.swing.JFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         if(null != musicsList.getSelectedValue()){
-            try {
+//            try {
               
-               deleteMusic("pedro",musicsList.getSelectedValue());
+//               deleteMusic("pedro",musicsList.getSelectedValue());
                this.dlm1.removeElement(musicsList.getSelectedValue());
                this.musicsList.setModel(dlm1);
 
-            } catch (IOException | ParseException ex) {
-                System.out.println(ex.getMessage());
-            }
+//            } catch (IOException | ParseException ex) {
+//                System.out.println(ex.getMessage());
+//            }
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 

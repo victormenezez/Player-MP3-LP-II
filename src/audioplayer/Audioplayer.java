@@ -20,40 +20,17 @@ import screens.LoginScreen;
  * @author joaovitordeon
  */
 public class Audioplayer {
-
-//    public static ArrayList<String> getMusics(String username)
-//            throws IOException, FileNotFoundException, ParseException {
-//        JSONArray jsonArray;
-//        jsonArray = readJson();
-//
-//        for (int i = 0; i < jsonArray.size(); i++) {
-//            //copia do valor do JSONObject do jsonarray
-//            JSONObject obj = (JSONObject) jsonArray.get(i);
-//
-//            if (obj.containsValue(username)) {
-//                ArrayList<String> musicslist = (ArrayList<String>) obj.get("musics");
-//                return musicslist;
-//
-//            }
-//
-//        }
-//        //se nao achar o username retorna lista vazia
-//        return null;
-//    }
-//    
+    
     public static void main(String[] args)
             throws IOException, Exception {
-//        ArrayList<String> array = new ArrayList();
 
-        //System.out.println( writeJSON("pedro","112233",false,array) );
-//        InterfaceGrafica ig = new InterfaceGrafica();;
-//        LoginScreen login_screen = new LoginScreen();
-//        login_screen.setVisible(true);
-        //writeJSON("pedro","114569",false,array);
+        LoginScreen login_screen = new LoginScreen();
+        login_screen.setVisible(true);
+
         try {
             printMusicJson();
             insertMusic("musica6");
-//            printMusicJson();
+            printMusicJson();
         } catch (IOException | NullPointerException | ParseException e) {;
             System.out.println(e+" oh");
         }

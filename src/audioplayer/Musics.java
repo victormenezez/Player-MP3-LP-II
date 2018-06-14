@@ -36,7 +36,7 @@ public class Musics extends Thread {
 
         JSONParser parser = new JSONParser();
         Object obj;
-        JSONObject jobj = null; 
+        JSONObject jobj = null;
 
         try {
             obj = parser.parse(new FileReader(PATH));
@@ -49,16 +49,16 @@ public class Musics extends Thread {
 
     public static void printMusicJson()
             throws IOException, FileNotFoundException, ParseException {
-        
+
         JSONArray jsonArray = null;
-        
+
         try {
             JSONObject musics = readMusicJson();
             jsonArray = (JSONArray) musics.get("musics");
-        } catch (IOException | ParseException  e) {
+        } catch (IOException | ParseException e) {
             System.out.println(e);
         }
-        
+
         for (Object obj : jsonArray) {
             System.out.println(obj);
             System.out.println("------------------------------------------------------");
@@ -114,6 +114,14 @@ public class Musics extends Thread {
 //        writeFile.close();
 //
 //    }
+    public static ArrayList<String> getMusics()
+            throws IOException, FileNotFoundException, ParseException {
+        JSONObject jobj;
+        jobj = readMusicJson();
+
+        ArrayList<String> musicslist = (ArrayList<String>) jobj.get("musics");
+        return musicslist;
+    }
 
     public void playMusic() throws Exception {
 
