@@ -6,8 +6,6 @@
 package screens;
 
 import audioplayer.Audioplayer;
-import static audioplayer.Audioplayer.login;
-import static audioplayer.Audioplayer.readJson;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +14,7 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import static audioplayer.UserDAO.readUserJson;
 
 /**
  *
@@ -89,15 +88,17 @@ public class LoginScreen extends javax.swing.JFrame {
 
         JSONArray users_list;
         boolean isLogged = false;
+        boolean isVip;
         try {
-            users_list = readJson();
+            users_list = readUserJson();
 
             for (Object o : users_list) {
                 JSONObject jobj = (JSONObject) o;
                 String login = (String) jobj.get("login");
                 String psw = (String) jobj.get("password");
                 if (login.equalsIgnoreCase(login_screen) && psw.equals(psw_screen)) {
-                    initial = new InitialScreen(((long) jobj.get("vip") == 1));
+                    isVip = (long) jobj.get("vip") == 1;
+                    initial = new InitialScreen(isVip, login);
                     isLogged = true;
                     dispose();
                 }

@@ -22,14 +22,18 @@ import org.json.simple.parser.ParseException;
  * @author joaovitordeon
  */
 public class InitialScreen extends javax.swing.JFrame {
-    boolean vip;
-    public InitialScreen(boolean vip) throws IOException, FileNotFoundException, ParseException {
+    private final boolean vip;
+    private final String username;
+    
+    public InitialScreen(boolean vip, String username) throws IOException, FileNotFoundException, ParseException {
        
         this.vip = vip;
-        initComponents();
-        if(!vip)
-            addPlaylistBtn.setEnabled(false);
+        this.username = username;
         
+        initComponents();
+        
+        if(!vip) addPlaylistBtn.setEnabled(false);
+        user_name_label.setText(username);
         dlm1 = new DefaultListModel();
         dlm2 = new DefaultListModel(); 
         
@@ -51,9 +55,9 @@ public class InitialScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        playBtn = new javax.swing.JButton();
-        pauseBtn = new javax.swing.JButton();
-        nextBtn = new javax.swing.JButton();
+        btn_play = new javax.swing.JButton();
+        btn_pause = new javax.swing.JButton();
+        btn_next = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         musicsList = new javax.swing.JList<>();
         musicsLabel = new javax.swing.JLabel();
@@ -65,7 +69,7 @@ public class InitialScreen extends javax.swing.JFrame {
         addDirecBtn = new javax.swing.JButton();
         addPlaylistBtn = new javax.swing.JButton();
         signOutBtn = new javax.swing.JButton();
-        userNameLabel = new javax.swing.JLabel();
+        user_name_label = new javax.swing.JLabel();
         profileImage = new javax.swing.JLabel();
         deleteBtn = new javax.swing.JButton();
 
@@ -76,29 +80,29 @@ public class InitialScreen extends javax.swing.JFrame {
         setFocusCycleRoot(false);
         setForeground(java.awt.Color.white);
 
-        playBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        playBtn.setText("Play");
-        playBtn.addActionListener(new java.awt.event.ActionListener() {
+        btn_play.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btn_play.setText("Play");
+        btn_play.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playBtnActionPerformed(evt);
+                btn_playActionPerformed(evt);
             }
         });
 
-        pauseBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        pauseBtn.setText("Pause");
-        pauseBtn.setEnabled(false);
-        pauseBtn.addActionListener(new java.awt.event.ActionListener() {
+        btn_pause.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btn_pause.setText("Pause");
+        btn_pause.setEnabled(false);
+        btn_pause.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pauseBtnActionPerformed(evt);
+                btn_pauseActionPerformed(evt);
             }
         });
 
-        nextBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        nextBtn.setText(">> Next");
-        nextBtn.setEnabled(false);
-        nextBtn.addActionListener(new java.awt.event.ActionListener() {
+        btn_next.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btn_next.setText(">> Next");
+        btn_next.setEnabled(false);
+        btn_next.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextBtnActionPerformed(evt);
+                btn_nextActionPerformed(evt);
             }
         });
 
@@ -153,9 +157,9 @@ public class InitialScreen extends javax.swing.JFrame {
             }
         });
 
-        userNameLabel.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
-        userNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        userNameLabel.setText("User name");
+        user_name_label.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        user_name_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        user_name_label.setText("User name");
 
         profileImage.setPreferredSize(new java.awt.Dimension(170, 170));
 
@@ -175,11 +179,11 @@ public class InitialScreen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(playBtn)
+                        .addComponent(btn_play)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pauseBtn)
+                        .addComponent(btn_pause)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nextBtn)
+                        .addComponent(btn_next)
                         .addGap(21, 21, 21)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -201,7 +205,7 @@ public class InitialScreen extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(signOutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(profileImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(userNameLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(user_name_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -210,7 +214,7 @@ public class InitialScreen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(user_name_label, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -237,9 +241,9 @@ public class InitialScreen extends javax.swing.JFrame {
                 .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(playBtn)
-                        .addComponent(pauseBtn)
-                        .addComponent(nextBtn))
+                        .addComponent(btn_play)
+                        .addComponent(btn_pause)
+                        .addComponent(btn_next))
                     .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -275,33 +279,33 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addMusicBtnActionPerformed
 
-    private void playBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playBtnActionPerformed
+    private void btn_playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_playActionPerformed
        
         if(null != musicsList.getSelectedValue()){
             try {
                 String way ="/home/joaovitordeon/NetBeansProjects/audioplayer/src/"+musicsList.getSelectedValue();
                 m = new Musics(way);
                 m.playMusic();
-                pauseBtn.setEnabled(true);
-                nextBtn.setEnabled(true);
+                btn_pause.setEnabled(true);
+                btn_next.setEnabled(true);
 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
         }
-    }//GEN-LAST:event_playBtnActionPerformed
+    }//GEN-LAST:event_btn_playActionPerformed
 
-    private void pauseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseBtnActionPerformed
+    private void btn_pauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pauseActionPerformed
         try {
             m.stopMusic();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-    }//GEN-LAST:event_pauseBtnActionPerformed
+    }//GEN-LAST:event_btn_pauseActionPerformed
 
-    private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
+    private void btn_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nextBtnActionPerformed
+    }//GEN-LAST:event_btn_nextActionPerformed
 
     private void addPlaylistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlaylistBtnActionPerformed
 
@@ -342,19 +346,19 @@ public class InitialScreen extends javax.swing.JFrame {
     private javax.swing.JButton addDirecBtn;
     private javax.swing.JButton addMusicBtn;
     private javax.swing.JButton addPlaylistBtn;
+    private javax.swing.JButton btn_next;
+    private javax.swing.JButton btn_pause;
+    private javax.swing.JButton btn_play;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel musicsLabel;
     private javax.swing.JList<String> musicsList;
-    private javax.swing.JButton nextBtn;
-    private javax.swing.JButton pauseBtn;
-    private javax.swing.JButton playBtn;
     private javax.swing.JLabel playlistsLabel;
     private javax.swing.JList<String> playlistsList;
     private javax.swing.JLabel profileImage;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JButton signOutBtn;
-    private javax.swing.JLabel userNameLabel;
+    private javax.swing.JLabel user_name_label;
     // End of variables declaration//GEN-END:variables
 }

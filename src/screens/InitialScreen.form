@@ -38,11 +38,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="playBtn" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_play" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pauseBtn" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_pause" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="nextBtn" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_next" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Component id="progressBar" min="-2" pref="500" max="-2" attributes="0"/>
                   </Group>
@@ -69,7 +69,7 @@
                               <Component id="signOutBtn" alignment="0" max="32767" attributes="0"/>
                               <Component id="profileImage" alignment="1" min="-2" pref="225" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="userNameLabel" alignment="1" min="-2" pref="225" max="-2" attributes="0"/>
+                          <Component id="user_name_label" alignment="1" min="-2" pref="225" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -83,7 +83,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="userNameLabel" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="user_name_label" min="-2" pref="24" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -118,9 +118,9 @@
               <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                      <Component id="playBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="pauseBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="nextBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_play" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_pause" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_next" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="progressBar" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
@@ -130,7 +130,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="playBtn">
+    <Component class="javax.swing.JButton" name="btn_play">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
@@ -138,10 +138,10 @@
         <Property name="text" type="java.lang.String" value="Play"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_playActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="pauseBtn">
+    <Component class="javax.swing.JButton" name="btn_pause">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
@@ -150,10 +150,10 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pauseBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_pauseActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="nextBtn">
+    <Component class="javax.swing.JButton" name="btn_next">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
@@ -162,7 +162,7 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nextBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_nextActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -272,7 +272,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signOutBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="userNameLabel">
+    <Component class="javax.swing.JLabel" name="user_name_label">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Serif" size="14" style="3"/>
