@@ -23,7 +23,7 @@ import org.json.simple.parser.ParseException;
  */
 public class UserDAO {
 
-    private static final String path = "/home/victor/NetBeansProjects/Player-MP3-LP-II/src/data/users.json";
+    private static final String path = "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/users.json";
     
     public static JSONArray readUserJson()
             throws FileNotFoundException, IOException, ParseException {

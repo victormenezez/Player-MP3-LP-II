@@ -248,7 +248,28 @@ public class InitialScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addDirecBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDirecBtnActionPerformed
-        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Escolha varias músicas para serem adicionadas");
+        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        //chooser.setMultiSelectionEnabled(true);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int result = chooser.showOpenDialog(this);
+        if(result== JFileChooser.APPROVE_OPTION){
+             try {
+                File f = chooser.getSelectedFile();
+                File[] filesList = f.listFiles();
+                 for (File file : filesList) {
+                     this.dlm1.addElement(file.getName());
+                     this.musicsList.setModel(dlm1);
+                     insertMusic(file.getName());
+                 }
+                
+            } catch (IOException | ParseException ex) {
+                System.out.println(ex);
+            }
+        
+        }
+         
     }//GEN-LAST:event_addDirecBtnActionPerformed
 
     private void addMusicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMusicBtnActionPerformed

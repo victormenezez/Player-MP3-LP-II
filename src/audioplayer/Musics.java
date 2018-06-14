@@ -21,7 +21,7 @@ import org.json.simple.parser.ParseException;
  */
 public class Musics extends Thread {
 
-    private static final String PATH = "/home/victor/NetBeansProjects/Player-MP3-LP-II/src/data/musics.json";
+    private static final String PATH = "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/musics.json";
     private final String music;
     private AdvancedPlayer player;
 
