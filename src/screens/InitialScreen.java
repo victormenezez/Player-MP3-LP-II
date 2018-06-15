@@ -261,9 +261,10 @@ public class InitialScreen extends javax.swing.JFrame {
                  for (File file : filesList) {
                      this.dlm1.addElement(file.getName());
                      this.musicsList.setModel(dlm1);
-                     insertMusic(file.getName());
+                     System.out.println(file.getName());
+                     System.out.println(file.getAbsolutePath());
+                     insertMusic(file.getName(),file.getAbsolutePath());
                  }
-                
             } catch (IOException | ParseException ex) {
                 System.out.println(ex);
             }
@@ -277,16 +278,20 @@ public class InitialScreen extends javax.swing.JFrame {
         fileChooser.setDialogTitle("Escolha a música a ser adicionada");
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         int result = fileChooser.showOpenDialog(this);
+//        String repeated_songs[] = null;
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
                 File selectedFile = fileChooser.getSelectedFile();
-                //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-                //pegar esse arquivo e jogar na playlist e usar o getName para mostrar o nome na playlist
-                //System.out.println( selectedFile.getName());
+                //pegar esse arquivo e jogar na playlist e usar o getName para 
+                //mostrar o nome na playlist
                 this.dlm1.addElement(selectedFile.getName());
                 this.musicsList.setModel(dlm1);
                 //adiciona a musica no json
-                insertMusic(selectedFile.getName());
+                System.out.println("Inserindo musica no json");
+                System.out.println(selectedFile.getName());
+                System.out.println(selectedFile.getAbsolutePath());
+                insertMusic(selectedFile.getName(), selectedFile.getAbsolutePath());
+                System.out.println("Musica inserida");
                 
             } catch (IOException | ParseException ex) {
                 System.out.println(ex);

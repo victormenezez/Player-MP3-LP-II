@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javazoom.jl.decoder.JavaLayerException;
@@ -21,7 +24,7 @@ import org.json.simple.parser.ParseException;
  */
 public class Musics extends Thread {
 
-    private static final String PATH = "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/musics.json";
+    private static final String PATH = "/home/victor/NetBeansProjects/Player-MP3-LP-II/src/data/musics.json";
     private final String music;
     private AdvancedPlayer player;
 
@@ -31,59 +34,66 @@ public class Musics extends Thread {
 
     }
 
-    public static JSONObject readMusicJson()
+    public static JSONArray readMusicJson()
             throws FileNotFoundException, IOException, ParseException {
 
         JSONParser parser = new JSONParser();
+        JSONArray jarr = null;
         Object obj;
-        JSONObject jobj = null;
 
         try {
             obj = parser.parse(new FileReader(PATH));
-            jobj = (JSONObject) obj;
+            jarr = (JSONArray) obj;
         } catch (IOException | NullPointerException | ParseException e) {
-            System.out.println(e + " ih");
-        }
-        return jobj;
-    }
-
-    public static void printMusicJson()
-            throws IOException, FileNotFoundException, ParseException {
-
-        JSONArray jsonArray = null;
-
-        try {
-            JSONObject musics = readMusicJson();
-            jsonArray = (JSONArray) musics.get("musics");
-        } catch (IOException | ParseException e) {
             System.out.println(e);
         }
-
-        for (Object obj : jsonArray) {
-            System.out.println(obj);
-            System.out.println("------------------------------------------------------");
-        }
+        return jarr;
     }
 
-    public static void insertMusic(String music)
+//    public static void printMusicJson()
+//            throws IOException, FileNotFoundException, ParseException {
+//
+//        JSONArray jsonArray = null;
+//
+//        try {
+//            JSONObject musics = readMusicJson();
+//            jsonArray = (JSONArray) musics.get("musics");
+//        } catch (IOException | ParseException e) {
+//            System.out.println(e);
+//        }
+//
+//        for (Object obj : jsonArray) {
+//            System.out.println(obj);
+//            System.out.println("------------------------------------------------------");
+//        }
+//    }
+    public static void insertMusic(String music, String path)
             throws IOException, FileNotFoundException, ParseException {
 
-        JSONObject obj = readMusicJson();
-        JSONArray musics_arr = (JSONArray) obj.get("musics");
+        JSONArray jarr = readMusicJson();
+        JSONObject aux = new JSONObject();
         FileWriter writeFile;
+        int i = 0;
 
-        if (!musics_arr.contains(music)) {
-            musics_arr.add(music);
-        } else {
-            JOptionPane.showMessageDialog(null, "Esta música já existe na biblioteca", "Erro", INFORMATION_MESSAGE);
+        System.out.println(jarr.isEmpty());
+        if (!jarr.isEmpty()) {
+            for (i = 0; i < jarr.size(); i++) {
+                JSONObject jobj = (JSONObject) jarr.get(i);
+                if (jobj.containsKey(music)) {
+                    JOptionPane.showMessageDialog(null, "A música " + music
+                            + " já existe na biblioteca", "Erro", INFORMATION_MESSAGE);
+                    return;
+                }
+            }
         }
-
-        //atualiza escrevendo no arquivo json
-        obj.replace(obj, obj.get("musics"), musics_arr);
+        
+        aux.put(music, path);
+        System.out.println(aux);
+        jarr.add(aux);
+        System.out.println(jarr);
         writeFile = new FileWriter(PATH);
-        writeFile.write(obj.toJSONString());
+        JSONArray.writeJSONString(jarr, writeFile);
         writeFile.close();
-
     }
 
 //    public static void deleteMusic(String username, String music)
@@ -116,10 +126,14 @@ public class Musics extends Thread {
 //    }
     public static ArrayList<String> getMusics()
             throws IOException, FileNotFoundException, ParseException {
+        JSONArray jarr = readMusicJson();
         JSONObject jobj;
-        jobj = readMusicJson();
+        ArrayList<String> musicslist = new ArrayList<>();
 
-        ArrayList<String> musicslist = (ArrayList<String>) jobj.get("musics");
+        for (int i = 0; i < jarr.size(); i++) {
+            jobj = (JSONObject) jarr.get(i);
+            musicslist = (ArrayList<String>) jobj.get(i);
+        }
         return musicslist;
     }
 
