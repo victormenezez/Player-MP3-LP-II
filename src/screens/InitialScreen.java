@@ -2,6 +2,7 @@
 package screens;
 
 import audioplayer.Musics;
+import static audioplayer.Musics.deleteMusic;
 import static audioplayer.Musics.getMusics;
 import static audioplayer.Musics.insertMusic;
 import java.io.File;
@@ -339,15 +340,15 @@ public class InitialScreen extends javax.swing.JFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         if(null != musicsList.getSelectedValue()){
-//            try {
+           try {
               
-//               deleteMusic("pedro",musicsList.getSelectedValue());
+               deleteMusic(musicsList.getSelectedValue());
                this.dlm1.removeElement(musicsList.getSelectedValue());
                this.musicsList.setModel(dlm1);
 
-//            } catch (IOException | ParseException ex) {
-//                System.out.println(ex.getMessage());
-//            }
+            } catch (IOException | ParseException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 

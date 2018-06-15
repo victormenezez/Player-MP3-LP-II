@@ -23,7 +23,7 @@ import org.json.simple.parser.ParseException;
  */
 public class UserDAO {
 
-    private static final String PATH = "/home/victor/NetBeansProjects/Player-MP3-LP-II/src/data/users.json";
+    private static final String PATH = "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/users.json";
     
     public static JSONArray readUserJson()
             throws FileNotFoundException, IOException, ParseException {
@@ -77,4 +77,25 @@ public class UserDAO {
         JSONArray.writeJSONString(jarr, writeFile);
         writeFile.close();
     }
+    public static void deleteUser(String username)
+            throws IOException, FileNotFoundException, ParseException {
+
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jarr;
+        jarr = readUserJson();
+        FileWriter writeFile=null;
+
+        for (int i = 0; i < jarr.size(); i++) {
+            JSONObject obj = (JSONObject) jarr.get(i);
+            //se possuir aquele username incrementa 
+            if (obj.containsValue(username)) {
+                jarr.remove(i);
+            }
+        }
+
+        writeFile = new FileWriter(PATH);
+        JSONArray.writeJSONString(jarr, writeFile);
+        writeFile.close();
+    }
+
 }

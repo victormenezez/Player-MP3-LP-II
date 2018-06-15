@@ -24,7 +24,7 @@ import org.json.simple.parser.ParseException;
  */
 public class Musics extends Thread {
 
-    private static final String PATH = "/home/victor/NetBeansProjects/Player-MP3-LP-II/src/data/musics.json";
+    private static final String PATH = "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/musics.json";
     private final String music;
     private AdvancedPlayer player;
 
@@ -95,35 +95,31 @@ public class Musics extends Thread {
         JSONArray.writeJSONString(jarr, writeFile);
         writeFile.close();
     }
+   public static void deleteMusic(String musicname)
+           throws IOException, FileNotFoundException, ParseException {
+        JSONArray jsonArray;
+        jsonArray = readMusicJson();
+        FileWriter writeFile = null;
+        
+        if(!jsonArray.isEmpty()){
+            for (int i = 0; i < jsonArray.size(); i++) {
+                //copia do valor do JSONObject do jsonarray
+                JSONObject obj = (JSONObject) jsonArray.get(i);
 
-//    public static void deleteMusic(String username, String music)
-//            throws IOException, FileNotFoundException, ParseException {
-//        JSONArray jsonArray;
-//        jsonArray = readMusicJson();
-//        FileWriter writeFile = null;
-//
-//        for (int i = 0; i < jsonArray.size(); i++) {
-//            //copia do valor do JSONObject do jsonarray
-//            JSONObject obj = (JSONObject) jsonArray.get(i);
-//
-//            if (obj.containsValue(username)) {
-//                //atualizar o array de musicas
-//                jsonArray.remove(i);
-//                ArrayList<String> musicslist = (ArrayList<String>) obj.get("musics");
-//                musicslist.remove(music);
-//                // atualiza o obj
-//                obj.put("musics", musicslist);
-//                //atualiza o jsonArray
-//                jsonArray.add(i, obj);
-//                break;
-//            }
-//        }
-//        //atualiza escrevendo no arquivo json
-//        writeFile = new FileWriter("saida.json");
-//        jsonArray.writeJSONString(jsonArray, writeFile);
-//        writeFile.close();
-//
-//    }
+                if (obj.containsKey(musicname)) {
+                    //atualizar o array de musicas
+                    jsonArray.remove(i);
+                    break;
+                }
+            }
+            //atualiza escrevendo no arquivo json
+            writeFile = new FileWriter(PATH);
+            JSONArray.writeJSONString(jsonArray, writeFile);
+            writeFile.close();
+        }    
+
+    }
+   
     public static ArrayList<String> getMusics()
             throws IOException, FileNotFoundException, ParseException {
         JSONArray jarr = readMusicJson();
