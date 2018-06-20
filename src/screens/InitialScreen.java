@@ -2,6 +2,8 @@
 package screens;
 
 import audioplayer.Musics;
+import static audioplayer.UserDAO.getPlaylistsNames;
+
 import static audioplayer.Musics.deleteMusic;
 import static audioplayer.Musics.getMusics;
 import static audioplayer.Musics.insertMusic;
@@ -21,18 +23,31 @@ import org.json.simple.parser.ParseException;
 public class InitialScreen extends javax.swing.JFrame {
     private final boolean vip;
     private final String username;
+    Musics m = new Musics();
+    AddPlaylist playlists;
     
     public InitialScreen(boolean vip, String username) throws IOException, FileNotFoundException, ParseException {
-       
         this.vip = vip;
         this.username = username;
         
         initComponents();
         
+        if(vip){
+            dlm2 = new DefaultListModel(); 
+            ArrayList<String> array = getPlaylistsNames(username); 
+            if(array != null){
+                for(String s: array){
+                    dlm2.addElement(s);
+                }
+                this.playlistsList.setModel(dlm2);
+            }
+        
+        }
+        
         if(!vip) addPlaylistBtn.setEnabled(false);
         user_name_label.setText(username);
         dlm1 = new DefaultListModel();
-        dlm2 = new DefaultListModel(); 
+        
         
         ArrayList<String> usermusics = getMusics();
         
@@ -52,7 +67,7 @@ public class InitialScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         btn_play = new javax.swing.JButton();
-        btn_pause = new javax.swing.JButton();
+        btn_stop = new javax.swing.JButton();
         btn_next = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         musicsList = new javax.swing.JList<>();
@@ -84,12 +99,12 @@ public class InitialScreen extends javax.swing.JFrame {
             }
         });
 
-        btn_pause.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        btn_pause.setText("Pause");
-        btn_pause.setEnabled(false);
-        btn_pause.addActionListener(new java.awt.event.ActionListener() {
+        btn_stop.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btn_stop.setText("Stop");
+        btn_stop.setEnabled(false);
+        btn_stop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_pauseActionPerformed(evt);
+                btn_stopActionPerformed(evt);
             }
         });
 
@@ -177,7 +192,7 @@ public class InitialScreen extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btn_play)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_pause)
+                        .addComponent(btn_stop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_next)
                         .addGap(21, 21, 21)
@@ -216,9 +231,9 @@ public class InitialScreen extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(41, 41, 41)
                                 .addComponent(addMusicBtn)
-                                .addGap(32, 32, 32)
+                                .addGap(38, 38, 38)
                                 .addComponent(deleteBtn)
-                                .addGap(35, 35, 35)
+                                .addGap(38, 38, 38)
                                 .addComponent(addDirecBtn))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(profileImage, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,7 +253,7 @@ public class InitialScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_play)
-                        .addComponent(btn_pause)
+                        .addComponent(btn_stop)
                         .addComponent(btn_next))
                     .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -288,9 +303,6 @@ public class InitialScreen extends javax.swing.JFrame {
                 this.dlm1.addElement(selectedFile.getName());
                 this.musicsList.setModel(dlm1);
                 //adiciona a musica no json
-                System.out.println("Inserindo musica no json");
-                System.out.println(selectedFile.getName());
-                System.out.println(selectedFile.getAbsolutePath());
                 insertMusic(selectedFile.getName(), selectedFile.getAbsolutePath());
                 System.out.println("Musica inserida");
                 
@@ -305,11 +317,8 @@ public class InitialScreen extends javax.swing.JFrame {
        
         if(null != musicsList.getSelectedValue()){
             try {
-                String way ="/home/joaovitordeon/NetBeansProjects/audioplayer/src/"
-                        +musicsList.getSelectedValue();
-                m = new Musics(way);
-                m.playMusic();
-                btn_pause.setEnabled(true);
+                m.playMusic( (String) musicsList.getSelectedValue());
+                btn_stop.setEnabled(true);
                 btn_next.setEnabled(true);
 
             } catch (Exception ex) {
@@ -318,24 +327,34 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_playActionPerformed
 
-    private void btn_pauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pauseActionPerformed
+    private void btn_stopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_stopActionPerformed
         try {
             m.stopMusic();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-    }//GEN-LAST:event_btn_pauseActionPerformed
+    }//GEN-LAST:event_btn_stopActionPerformed
 
     private void btn_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nextActionPerformed
-        // TODO add your handling code here:
+        int index=musicsList.getSelectedIndex();
+        
+        try {
+            m.stopMusic();
+            musicsList.setSelectedIndex(index+1);
+            m.playMusic( (String) musicsList.getSelectedValue());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }//GEN-LAST:event_btn_nextActionPerformed
 
     private void addPlaylistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlaylistBtnActionPerformed
-
+         if(this.vip) playlists = new AddPlaylist();
     }//GEN-LAST:event_addPlaylistBtnActionPerformed
 
     private void musicsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_musicsListValueChanged
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_musicsListValueChanged
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
@@ -361,7 +380,6 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_signOutBtnActionPerformed
     
-    private Musics m;
     private DefaultListModel dlm1;
     private DefaultListModel dlm2;
    
@@ -370,8 +388,8 @@ public class InitialScreen extends javax.swing.JFrame {
     private javax.swing.JButton addMusicBtn;
     private javax.swing.JButton addPlaylistBtn;
     private javax.swing.JButton btn_next;
-    private javax.swing.JButton btn_pause;
     private javax.swing.JButton btn_play;
+    private javax.swing.JButton btn_stop;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

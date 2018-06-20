@@ -6,8 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -22,18 +20,83 @@ import org.json.simple.parser.ParseException;
  *
  * @author joaovitordeon
  */
-public class Musics extends Thread {
+public class Musics{
 
-    private static final String PATH = "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/musics.json";
-    private final String music;
+    private static String MUSICS_PATH;
+    private static String PLAYLISTS_PATH;
     private AdvancedPlayer player;
+    private boolean playing=false;
+   
+    public Musics(){
+        this.MUSICS_PATH= "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/musics.json";
+        this.PLAYLISTS_PATH= "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/playlists.json";
+    }
+    
+    //---------------------------------------------------------------------------------------------------
+    public static void insertPlaylist(String name, ArrayList<String> array)
+            throws IOException, FileNotFoundException, ParseException {
 
-    public Musics(String music) throws Exception {
+        JSONArray jarr = readPlaylistJson();
+        JSONObject aux = new JSONObject();
+        FileWriter writeFile;
+        int i = 0;
 
-        this.music = music;
+        //System.out.println(jarr.isEmpty());
+        if (!jarr.isEmpty()) {
+            for (i = 0; i < jarr.size(); i++) {
+                JSONObject jobj = (JSONObject) jarr.get(i);
+                if (jobj.containsKey(name)) {
+                    JOptionPane.showMessageDialog(null, "A playlist " + name
+                            + " já existe na biblioteca", "Erro", INFORMATION_MESSAGE);
+                    return;
+                }
+            }
+        }
+        
+        aux.put(name, array);
+        jarr.add(aux);
+        writeFile = new FileWriter(PLAYLISTS_PATH);
+        JSONArray.writeJSONString(jarr, writeFile);
+        writeFile.close();
+    }
+    
+    public ArrayList<String> getPlaylist(String name) throws IOException, FileNotFoundException, ParseException{
+        
+        ArrayList<String> array;
+        JSONArray jarr = readPlaylistJson();
+        JSONObject aux = new JSONObject();
+        
+        if (!jarr.isEmpty()) {
+            for (int i = 0; i < jarr.size(); i++) {
+                JSONObject jobj = (JSONObject) jarr.get(i);
+                if (jobj.containsKey(name)) {
+                    array = new ArrayList<String>();
+                    array = (ArrayList<String>) jobj.get(name);
+                    return array;
+                }
+            }
+        }
+        return null;
+    
+    }
+    
+    public static JSONArray readPlaylistJson()
+            throws FileNotFoundException, IOException, ParseException {
 
+        JSONParser parser = new JSONParser();
+        JSONArray jarr = null;
+        Object obj;
+
+        try {
+            obj = parser.parse(new FileReader(PLAYLISTS_PATH));
+            jarr = (JSONArray) obj;
+        } catch (IOException | NullPointerException | ParseException e) {
+            System.out.println(e);
+        }
+        return jarr;
     }
 
+    //---------------------------------------------------------------------------------------------------- 
     public static JSONArray readMusicJson()
             throws FileNotFoundException, IOException, ParseException {
 
@@ -42,7 +105,7 @@ public class Musics extends Thread {
         Object obj;
 
         try {
-            obj = parser.parse(new FileReader(PATH));
+            obj = parser.parse(new FileReader(MUSICS_PATH));
             jarr = (JSONArray) obj;
         } catch (IOException | NullPointerException | ParseException e) {
             System.out.println(e);
@@ -50,23 +113,6 @@ public class Musics extends Thread {
         return jarr;
     }
 
-//    public static void printMusicJson()
-//            throws IOException, FileNotFoundException, ParseException {
-//
-//        JSONArray jsonArray = null;
-//
-//        try {
-//            JSONObject musics = readMusicJson();
-//            jsonArray = (JSONArray) musics.get("musics");
-//        } catch (IOException | ParseException e) {
-//            System.out.println(e);
-//        }
-//
-//        for (Object obj : jsonArray) {
-//            System.out.println(obj);
-//            System.out.println("------------------------------------------------------");
-//        }
-//    }
     public static void insertMusic(String music, String path)
             throws IOException, FileNotFoundException, ParseException {
 
@@ -91,7 +137,7 @@ public class Musics extends Thread {
         System.out.println(aux);
         jarr.add(aux);
         System.out.println(jarr);
-        writeFile = new FileWriter(PATH);
+        writeFile = new FileWriter(MUSICS_PATH);
         JSONArray.writeJSONString(jarr, writeFile);
         writeFile.close();
     }
@@ -113,7 +159,7 @@ public class Musics extends Thread {
                 }
             }
             //atualiza escrevendo no arquivo json
-            writeFile = new FileWriter(PATH);
+            writeFile = new FileWriter(MUSICS_PATH);
             JSONArray.writeJSONString(jsonArray, writeFile);
             writeFile.close();
         }    
@@ -128,31 +174,45 @@ public class Musics extends Thread {
 
         for (int i = 0; i < jarr.size(); i++) {
             jobj = (JSONObject) jarr.get(i);
-            musicslist = (ArrayList<String>) jobj.get(i);
+            Set<String> s = jobj.keySet();
+            musicslist.add(s.toString().substring(1, s.toString().length()-1) );
         }
         return musicslist;
     }
+    //--------------------------------------------------------------------------------------------------
+    public void playMusic(String music) throws Exception { 
+        if(playing != true){
+            try {
+                String way ="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/"+music;
+                FileInputStream stream = new FileInputStream(way);
+                player = new AdvancedPlayer(stream);
 
-    public void playMusic() throws Exception {
+            } catch (FileNotFoundException | JavaLayerException e) {
+            } 
+        
+            new Thread(){
+                private boolean playing;
+                @Override
+                public void run(){
+                    try {
+                        player.play();
 
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    FileInputStream stream = new FileInputStream(music);
-                    player = new AdvancedPlayer(stream);
-                    player.play();
-                    player.close();
-
-                } catch (FileNotFoundException | JavaLayerException e) {
+                    } catch (JavaLayerException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }.start();
+
+            }.start();
+            this.playing=true;
+        }
+       
     }
 
     public void stopMusic() throws Exception {
-        if (this.player != null) {
+        if (this.player != null && playing==true) {
             this.player.close();
+            this.playing=false;
+            
         }
     }
 

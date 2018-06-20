@@ -24,7 +24,56 @@ import org.json.simple.parser.ParseException;
 public class UserDAO {
 
     private static final String PATH = "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/users.json";
+    private static ArrayList<String> playlists;
     
+     public static void addPlaylistToUser(String username, String playlist_name)
+            throws IOException, FileNotFoundException, ParseException {
+
+        //array auxiliar 
+        ArrayList<String> aux = new ArrayList<String>();
+        
+        JSONArray jarr;
+        jarr = readUserJson();
+        FileWriter writeFile;
+
+        for (int i = 0; i < jarr.size(); i++) {
+            JSONObject obj = (JSONObject) jarr.get(i);
+            //se possuir aquele username incrementa 
+            if (obj.containsValue(username)) {
+                jarr.remove(i);
+                aux=(ArrayList<String>) obj.get("playlists");
+                aux.add(playlist_name);
+                obj.remove("playlists");
+                obj.put("playlists", aux);
+                jarr.add(i, obj);
+                break;
+            }
+        }
+
+        writeFile = new FileWriter(PATH);
+        JSONArray.writeJSONString(jarr, writeFile);
+        writeFile.close();
+        
+    }
+     
+    public static ArrayList<String> getPlaylistsNames(String username) throws IOException, FileNotFoundException, ParseException{
+        
+        ArrayList<String> aux = new ArrayList<String>();
+        JSONArray jarr;
+        jarr = readUserJson();
+        
+         for (int i = 0; i < jarr.size(); i++) {
+            JSONObject obj = (JSONObject) jarr.get(i);
+            //se possuir aquele username incrementa 
+            if (obj.containsValue(username)) {
+                aux=(ArrayList<String>) obj.get("playlists");
+                return aux;
+            }   
+        }
+         
+        return null; 
+    }
+    //------------------------------------------------------------------------------------------- 
     public static JSONArray readUserJson()
             throws FileNotFoundException, IOException, ParseException {
 
@@ -50,7 +99,9 @@ public class UserDAO {
 
     public static void addUser(String username, String password, int vip)
             throws IOException, FileNotFoundException, ParseException {
-
+        //vetor das playlists inicia vazio quando se cria um user
+        playlists = new ArrayList<>();
+        
         JSONObject jsonObject = new JSONObject();
         JSONArray jarr;
         jarr = readUserJson();
@@ -68,10 +119,9 @@ public class UserDAO {
         jsonObject.put("login", username);
         jsonObject.put("password", password);
         jsonObject.put("vip", vip);
+        jsonObject.put("playlists", playlists);
 
-        System.out.println("user to be salved "+jsonObject);
         jarr.add(jsonObject);
-        System.out.println(jarr);
 
         writeFile = new FileWriter(PATH);
         JSONArray.writeJSONString(jarr, writeFile);

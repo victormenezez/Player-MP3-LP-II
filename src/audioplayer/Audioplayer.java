@@ -21,7 +21,7 @@ public class Audioplayer {
 //        LoginScreen login_screen = new LoginScreen();
 //        login_screen.setVisible(true);
 
-        InitialScreen i = new InitialScreen(true, "carlos");
+        InitialScreen i = new InitialScreen(true,"rw");
         try {
 //            printMusicJson();
 //            insertMusic("musica6");
