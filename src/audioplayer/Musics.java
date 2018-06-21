@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -24,12 +25,33 @@ public class Musics{
 
     private static String MUSICS_PATH;
     private static String PLAYLISTS_PATH;
+    private String aux;
+    
     private AdvancedPlayer player;
+    private FileInputStream stream;
+    
     private boolean playing=false;
+    private boolean paused=false;
+    
+    public long duration_song;
+    public long pause_position;
    
+    
     public Musics(){
         this.MUSICS_PATH= "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/musics.json";
         this.PLAYLISTS_PATH= "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/playlists.json";
+    }
+    //--------------------------------------------------------------------------------------------------
+    public void setPausedStatus(boolean b){
+        this.paused=b;
+    
+    }
+    public boolean getPaused(){
+        return this.paused;
+    }
+    
+    public boolean getPlaying(){
+       return this.playing;
     }
     
     //---------------------------------------------------------------------------------------------------
@@ -181,17 +203,20 @@ public class Musics{
     }
     //--------------------------------------------------------------------------------------------------
     public void playMusic(String music) throws Exception { 
-        if(playing != true){
+        if(playing == false){
             try {
-                String way ="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/"+music;
-                FileInputStream stream = new FileInputStream(way);
+                String way = "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/"+music;
+                aux=way;
+                stream = new FileInputStream(way);
                 player = new AdvancedPlayer(stream);
+                // duraçao total da musica
+                duration_song = stream.available();
 
             } catch (FileNotFoundException | JavaLayerException e) {
             } 
         
             new Thread(){
-                private boolean playing;
+                
                 @Override
                 public void run(){
                     try {
@@ -211,9 +236,50 @@ public class Musics{
     public void stopMusic() throws Exception {
         if (this.player != null && playing==true) {
             this.player.close();
+            this.duration_song=0;
+            this.pause_position=0;
             this.playing=false;
             
         }
+    }
+    public void resumeMusic() throws FileNotFoundException, JavaLayerException, IOException{
+        if (this.player != null && paused==true){
+            stream = new FileInputStream(aux);
+            
+            stream.skip(duration_song - pause_position);
+            
+            player = new AdvancedPlayer(stream);
+            
+            new Thread(){
+                
+                @Override
+                public void run(){
+                    try {
+                        player.play();
+
+                    } catch (JavaLayerException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }.start();
+            this.playing=true;
+           
+        }
+    
+    
+    
+    }
+    
+    public void pauseMusic() throws IOException{
+        if (this.player != null && playing==true) {
+            pause_position =  stream.available();
+            this.player.close();
+            this.setPausedStatus(true); 
+   
+        }
+    
+             
     }
 
 }

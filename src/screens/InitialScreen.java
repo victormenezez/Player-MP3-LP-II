@@ -83,6 +83,7 @@ public class InitialScreen extends javax.swing.JFrame {
         user_name_label = new javax.swing.JLabel();
         profileImage = new javax.swing.JLabel();
         deleteBtn = new javax.swing.JButton();
+        btn_pause = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AudioPlayer");
@@ -182,20 +183,31 @@ public class InitialScreen extends javax.swing.JFrame {
             }
         });
 
+        btn_pause.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btn_pause.setText("Pause");
+        btn_pause.setEnabled(false);
+        btn_pause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pauseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btn_play)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_pause)
+                        .addGap(12, 12, 12)
                         .addComponent(btn_stop)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_next)
-                        .addGap(21, 21, 21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -253,8 +265,9 @@ public class InitialScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_play)
-                        .addComponent(btn_stop)
-                        .addComponent(btn_next))
+                        .addComponent(btn_next)
+                        .addComponent(btn_pause)
+                        .addComponent(btn_stop))
                     .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -314,12 +327,24 @@ public class InitialScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_addMusicBtnActionPerformed
 
     private void btn_playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_playActionPerformed
-       
+            
         if(null != musicsList.getSelectedValue()){
             try {
-                m.playMusic( (String) musicsList.getSelectedValue());
-                btn_stop.setEnabled(true);
-                btn_next.setEnabled(true);
+                if(m.getPaused() == false){
+                    if(m.getPlaying() == true)  m.stopMusic();
+                   
+                    m.playMusic( (String) musicsList.getSelectedValue());
+                    
+                    btn_stop.setEnabled(true);
+                    btn_next.setEnabled(true);
+                    btn_pause.setEnabled(true);
+                    
+                }
+                else{
+                    btn_play.setEnabled(true);
+                    m.resumeMusic();
+                    m.setPausedStatus(false);
+                }
 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
@@ -330,6 +355,7 @@ public class InitialScreen extends javax.swing.JFrame {
     private void btn_stopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_stopActionPerformed
         try {
             m.stopMusic();
+            btn_pause.setEnabled(false);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -342,6 +368,7 @@ public class InitialScreen extends javax.swing.JFrame {
             m.stopMusic();
             musicsList.setSelectedIndex(index+1);
             m.playMusic( (String) musicsList.getSelectedValue());
+            btn_pause.setEnabled(true);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -379,6 +406,15 @@ public class InitialScreen extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_signOutBtnActionPerformed
+
+    private void btn_pauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pauseActionPerformed
+        try {
+            m.pauseMusic();
+            m.setPausedStatus(true);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btn_pauseActionPerformed
     
     private DefaultListModel dlm1;
     private DefaultListModel dlm2;
@@ -388,6 +424,7 @@ public class InitialScreen extends javax.swing.JFrame {
     private javax.swing.JButton addMusicBtn;
     private javax.swing.JButton addPlaylistBtn;
     private javax.swing.JButton btn_next;
+    private javax.swing.JButton btn_pause;
     private javax.swing.JButton btn_play;
     private javax.swing.JButton btn_stop;
     private javax.swing.JButton deleteBtn;
