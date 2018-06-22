@@ -22,33 +22,42 @@ import org.json.simple.parser.ParseException;
  */
 public class InitialScreen extends javax.swing.JFrame {
     private final boolean vip;
-    private final String username;
+    private static String username;
     Musics m = new Musics();
     AddPlaylist playlists;
     
     public InitialScreen(boolean vip, String username) throws IOException, FileNotFoundException, ParseException {
         this.vip = vip;
-        this.username = username;
+        InitialScreen.username = username;
         
         initComponents();
         
-        if(vip){
-            dlm2 = new DefaultListModel(); 
-            ArrayList<String> array = getPlaylistsNames(username); 
+        if(vip) updatePlaylistsList();
+        
+        if(!vip) addPlaylistBtn.setEnabled(false); 
+       
+        dlm1 = new DefaultListModel();
+        updateMusicsList();
+        
+        user_name_label.setText(username);
+        this.setVisible(true);
+    }
+    //-----------------------------------------------------------------------------------
+    
+    public static void updatePlaylistsList() throws IOException, FileNotFoundException, ParseException{
+        dlm2 = new DefaultListModel(); 
+            ArrayList<String> array; 
+        array = getPlaylistsNames(username);
             if(array != null){
                 for(String s: array){
                     dlm2.addElement(s);
                 }
-                this.playlistsList.setModel(dlm2);
+                playlistsList.setModel(dlm2);
             }
-        
-        }
-        
-        if(!vip) addPlaylistBtn.setEnabled(false);
-        user_name_label.setText(username);
-        dlm1 = new DefaultListModel();
-        
-        
+    
+    }
+    
+    private void updateMusicsList() throws IOException, FileNotFoundException, ParseException{
         ArrayList<String> usermusics = getMusics();
         
         if(getMusics() != null){
@@ -58,10 +67,9 @@ public class InitialScreen extends javax.swing.JFrame {
         
             this.musicsList.setModel(dlm1);
         }
-        
-        this.setVisible(true);
-    }
     
+    }
+    //--------------------------------------------------------------------------------------
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -377,7 +385,16 @@ public class InitialScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_nextActionPerformed
 
     private void addPlaylistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlaylistBtnActionPerformed
-         if(this.vip) playlists = new AddPlaylist();
+         if(this.vip) {
+             
+            try {
+                playlists = new AddPlaylist(username);
+                
+            }catch (IOException | ParseException e){
+            
+            }
+        }   
+            
     }//GEN-LAST:event_addPlaylistBtnActionPerformed
 
     private void musicsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_musicsListValueChanged
@@ -417,7 +434,7 @@ public class InitialScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_pauseActionPerformed
     
     private DefaultListModel dlm1;
-    private DefaultListModel dlm2;
+    private static DefaultListModel dlm2;
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addDirecBtn;
@@ -433,7 +450,7 @@ public class InitialScreen extends javax.swing.JFrame {
     private javax.swing.JLabel musicsLabel;
     private javax.swing.JList<String> musicsList;
     private javax.swing.JLabel playlistsLabel;
-    private javax.swing.JList<String> playlistsList;
+    private static javax.swing.JList<String> playlistsList;
     private javax.swing.JLabel profileImage;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JButton signOutBtn;

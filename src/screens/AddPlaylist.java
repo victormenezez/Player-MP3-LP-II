@@ -1,26 +1,46 @@
 package screens;
 
+import static audioplayer.Musics.getMusics;
 import static audioplayer.Musics.insertPlaylist;
-import java.io.File;
+import static audioplayer.UserDAO.addPlaylistToUser;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.swing.DefaultListModel;
-import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import org.json.simple.parser.ParseException;
+import static screens.InitialScreen.updatePlaylistsList;
 
 /**
  *
  * @author joaovitordeon
  */
 public class AddPlaylist extends javax.swing.JFrame {
-    private ArrayList<String> musics;
+    private final ArrayList<String> musics;
     private String playlist_name;
+    private String username;
     
-    public AddPlaylist() {
+    public AddPlaylist(String username) throws IOException, FileNotFoundException, ParseException {
         initComponents();
+        
+        this.username=username;
+        musics=getMusics();
+        dlm = new DefaultListModel();
+       
+        if(musics != null){ 
+            for (String s : musics) {this.dlm.addElement(s);
+            }
+        }
+       
+        this.playlist_list.setModel(dlm);
+        
         this.setVisible(true);
+    }
+
+    private AddPlaylist() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
@@ -30,12 +50,12 @@ public class AddPlaylist extends javax.swing.JFrame {
 
         playlist_name_input = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        add_musics_btn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         playlist_list = new javax.swing.JList<>();
         create_playlist_btn = new javax.swing.JButton();
+        seletc_musics_label = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         playlist_name_input.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -47,14 +67,6 @@ public class AddPlaylist extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Playlist name:");
 
-        add_musics_btn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        add_musics_btn.setText("Add Musics");
-        add_musics_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add_musics_btnActionPerformed(evt);
-            }
-        });
-
         jScrollPane1.setViewportView(playlist_list);
 
         create_playlist_btn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
@@ -65,6 +77,10 @@ public class AddPlaylist extends javax.swing.JFrame {
             }
         });
 
+        seletc_musics_label.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        seletc_musics_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        seletc_musics_label.setText("Select musics to create the playlist:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,15 +88,15 @@ public class AddPlaylist extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(create_playlist_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(playlist_name_input, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(add_musics_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(create_playlist_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(seletc_musics_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -91,7 +107,7 @@ public class AddPlaylist extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(playlist_name_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(add_musics_btn)
+                .addComponent(seletc_musics_label, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -106,50 +122,31 @@ public class AddPlaylist extends javax.swing.JFrame {
     private void playlist_name_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playlist_name_inputActionPerformed
         
     }//GEN-LAST:event_playlist_name_inputActionPerformed
-
-    private void add_musics_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_musics_btnActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setMultiSelectionEnabled(true);
-        fileChooser.setDialogTitle("Escolha as músicas a serem adicionadas");
-        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        int result = fileChooser.showOpenDialog(this);
-//      
-        if(result != JFileChooser.APPROVE_OPTION){
-            
-        }else{    
-            try {
-                dlm= new DefaultListModel();
-                musics= new ArrayList<String>();
-                
-                File[] files = fileChooser.getSelectedFiles();
-                
-                for(File f: files){
-                        this.dlm.addElement(f.getName());
-                        this.musics.add(f.getName());
-                    }
-        
-                this.playlist_list.setModel(dlm);
-                
-                
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }  
-
-    }//GEN-LAST:event_add_musics_btnActionPerformed
   
     private void create_playlist_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_create_playlist_btnActionPerformed
-        try {
-            //adiciona a playlist no json das playlists
-            String playlist_name = (String) playlist_name_input.getText() ;
-            insertPlaylist( playlist_name , musics );
-            
-            dispose();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
+        
+        String playlist_name = (String) playlist_name_input.getText() ;
+        List<String> aux1 = playlist_list.getSelectedValuesList();
+        ArrayList<String> aux2 = new ArrayList<String>(aux1);
+        
+        if(playlist_name.length() == 0 || playlist_list.isSelectionEmpty() == true  ){
+            JOptionPane.showMessageDialog(this, "Voce precisa colocar um nome e selecionar musicas.", "OPS...Esta faltando algo!", ERROR_MESSAGE);
         }
+        
+        else{    
+            try{
+               
+                insertPlaylist( playlist_name , aux2 );
+                addPlaylistToUser( username, playlist_name);
+                updatePlaylistsList();
+                
+                dispose();
+
+            }catch (IOException | ParseException e) {
+                
+            }
+        }
+        
     }//GEN-LAST:event_create_playlist_btnActionPerformed
 
     /**
@@ -190,11 +187,11 @@ public class AddPlaylist extends javax.swing.JFrame {
     
     private DefaultListModel dlm;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add_musics_btn;
     private javax.swing.JButton create_playlist_btn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> playlist_list;
     private javax.swing.JTextField playlist_name_input;
+    private javax.swing.JLabel seletc_musics_label;
     // End of variables declaration//GEN-END:variables
 }

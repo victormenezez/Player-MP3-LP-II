@@ -10,7 +10,6 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
