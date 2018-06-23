@@ -6,6 +6,7 @@ import static audioplayer.UserDAO.getPlaylistsNames;
 
 import static audioplayer.Musics.deleteMusic;
 import static audioplayer.Musics.getMusics;
+import static audioplayer.Musics.getPlaylist;
 import static audioplayer.Musics.insertMusic;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +24,8 @@ import org.json.simple.parser.ParseException;
 public class InitialScreen extends javax.swing.JFrame {
     private final boolean vip;
     private static String username;
+    private DefaultListModel dlm1;
+    private static DefaultListModel dlm2;
     Musics m = new Musics();
     AddPlaylist playlists;
     
@@ -37,7 +40,7 @@ public class InitialScreen extends javax.swing.JFrame {
         if(!vip) addPlaylistBtn.setEnabled(false); 
        
         dlm1 = new DefaultListModel();
-        updateMusicsList();
+        refreshMusicsList();
         
         user_name_label.setText(username);
         this.setVisible(true);
@@ -57,11 +60,28 @@ public class InitialScreen extends javax.swing.JFrame {
     
     }
     
-    private void updateMusicsList() throws IOException, FileNotFoundException, ParseException{
+    private void refreshMusicsList() throws IOException, FileNotFoundException, ParseException{
         ArrayList<String> usermusics = getMusics();
         
         if(getMusics() != null){
+            dlm1.clear();
+            
             for (String s : usermusics) {
+                this.dlm1.addElement(s);
+            }
+        
+            this.musicsList.setModel(dlm1);
+        }
+    
+    }
+    
+    private void updateMusicsList(String playlist_name) throws IOException, FileNotFoundException, ParseException{
+        ArrayList<String> musics = getPlaylist(playlist_name);
+        
+        if(getMusics() != null){
+            dlm1.clear();
+            
+            for (String s : musics) {
                 this.dlm1.addElement(s);
             }
         
@@ -92,6 +112,7 @@ public class InitialScreen extends javax.swing.JFrame {
         profileImage = new javax.swing.JLabel();
         deleteBtn = new javax.swing.JButton();
         btn_pause = new javax.swing.JButton();
+        allSongsBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AudioPlayer");
@@ -143,6 +164,11 @@ public class InitialScreen extends javax.swing.JFrame {
         playlistsLabel.setText("Playlists");
 
         playlistsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        playlistsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                playlistsListMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(playlistsList);
 
         addMusicBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
@@ -200,6 +226,14 @@ public class InitialScreen extends javax.swing.JFrame {
             }
         });
 
+        allSongsBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        allSongsBtn.setText("Refresh songs");
+        allSongsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allSongsBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,7 +249,7 @@ public class InitialScreen extends javax.swing.JFrame {
                         .addComponent(btn_stop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_next)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -225,12 +259,13 @@ public class InitialScreen extends javax.swing.JFrame {
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(musicsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(allSongsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(addPlaylistBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addPlaylistBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                             .addComponent(playlistsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -266,10 +301,12 @@ public class InitialScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2))
-                        .addGap(14, 14, 14)
-                        .addComponent(addPlaylistBtn)))
-                .addGap(63, 63, 63)
+                            .addComponent(jScrollPane2))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addPlaylistBtn)
+                    .addComponent(allSongsBtn))
+                .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_play)
@@ -432,14 +469,39 @@ public class InitialScreen extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btn_pauseActionPerformed
-    
-    private DefaultListModel dlm1;
-    private static DefaultListModel dlm2;
+
+    private void playlistsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playlistsListMouseClicked
+        
+        if (evt.getClickCount() == 2) {
+            int index = playlistsList.locationToIndex(evt.getPoint());
+            String str = (String) dlm2.getElementAt(index);
+            
+            try {
+                updateMusicsList(str);
+                
+            }catch (IOException | ParseException e) {
+                
+            }
+            
+        }
+    }//GEN-LAST:event_playlistsListMouseClicked
+
+    private void allSongsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allSongsBtnActionPerformed
+        try {
+            this.refreshMusicsList();
+            
+        }catch (IOException | ParseException e) {
+            
+        }
+        
+    }//GEN-LAST:event_allSongsBtnActionPerformed
+   
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addDirecBtn;
     private javax.swing.JButton addMusicBtn;
     private javax.swing.JButton addPlaylistBtn;
+    private javax.swing.JButton allSongsBtn;
     private javax.swing.JButton btn_next;
     private javax.swing.JButton btn_pause;
     private javax.swing.JButton btn_play;

@@ -81,7 +81,7 @@ public class Musics{
         writeFile.close();
     }
     
-    public ArrayList<String> getPlaylist(String name) throws IOException, FileNotFoundException, ParseException{
+    public static ArrayList<String> getPlaylist(String name) throws IOException, FileNotFoundException, ParseException{
         
         ArrayList<String> array;
         JSONArray jarr = readPlaylistJson();
