@@ -35,48 +35,53 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="btn_play" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btn_pause" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="btn_stop" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btn_next" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="47" max="32767" attributes="0"/>
-                      <Component id="progressBar" min="-2" pref="500" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="611" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="signOutBtn" alignment="0" max="32767" attributes="0"/>
+                          <Component id="profileImage" alignment="1" min="-2" pref="225" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="addDirecBtn" max="32767" attributes="0"/>
-                          <Component id="addMusicBtn" max="32767" attributes="0"/>
-                          <Component id="deleteBtn" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="musicsLabel" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" pref="190" max="32767" attributes="0"/>
-                          <Component id="allSongsBtn" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="addPlaylistBtn" pref="190" max="32767" attributes="0"/>
-                          <Component id="playlistsLabel" max="32767" attributes="0"/>
-                          <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="signOutBtn" alignment="0" max="32767" attributes="0"/>
-                              <Component id="profileImage" alignment="1" min="-2" pref="225" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="btn_play" min="-2" pref="75" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btn_pause" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btn_stop" min="-2" pref="74" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btn_next" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="42" max="32767" attributes="0"/>
+                              <Component id="progressBar" min="-2" pref="469" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="user_name_label" alignment="1" min="-2" pref="225" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="deleteBtn" min="-2" max="-2" attributes="0"/>
+                                  <Component id="addDirecBtn" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
+                                  <Component id="addMusicBtn" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="musicsLabel" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" pref="190" max="32767" attributes="0"/>
+                                  <Component id="allSongsBtn" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="addPlaylistBtn" pref="190" max="32767" attributes="0"/>
+                                  <Component id="playlistsLabel" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="user_name_label" min="-2" pref="225" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -85,53 +90,51 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="user_name_label" min="-2" pref="24" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                              <Component id="addMusicBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="deleteBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="addDirecBtn" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="profileImage" min="-2" pref="201" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                              <Component id="signOutBtn" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="profileImage" min="-2" pref="201" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Component id="signOutBtn" min="-2" pref="42" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="playlistsLabel" max="32767" attributes="0"/>
                           <Component id="musicsLabel" pref="24" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jScrollPane1" pref="246" max="32767" attributes="0"/>
-                          <Component id="jScrollPane2" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jScrollPane1" pref="246" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="addMusicBtn" min="-2" pref="48" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="addDirecBtn" min="-2" pref="46" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="deleteBtn" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="addPlaylistBtn" min="-2" pref="42" max="-2" attributes="0"/>
+                          <Component id="allSongsBtn" min="-2" pref="42" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="addPlaylistBtn" min="-2" max="-2" attributes="0"/>
-                  <Component id="allSongsBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="59" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" max="-2" attributes="0">
+                  <Component id="btn_play" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="btn_pause" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="btn_stop" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="btn_next" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="progressBar" alignment="1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                      <Component id="btn_play" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_next" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_pause" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_stop" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="progressBar" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -141,6 +144,9 @@
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/Play.gif"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Play"/>
       </Properties>
@@ -152,6 +158,9 @@
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/Stop.gif"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Stop"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -244,6 +253,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
         </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/music_plus.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Add Music"/>
       </Properties>
       <Events>
@@ -254,6 +266,9 @@
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/baker_add_dir.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Add Direc"/>
       </Properties>
@@ -266,6 +281,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
         </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/add.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Add Playlist"/>
       </Properties>
       <Events>
@@ -276,6 +294,9 @@
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/exit.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Sing out"/>
       </Properties>
@@ -294,6 +315,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="profileImage">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/image2.png"/>
+        </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[170, 170]"/>
         </Property>
@@ -303,6 +327,9 @@
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/delete.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Delete Music"/>
       </Properties>
@@ -315,6 +342,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
         </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/Pause.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Pause"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -326,6 +356,9 @@
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="15" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/reload_all_tabs.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Refresh songs"/>
       </Properties>
