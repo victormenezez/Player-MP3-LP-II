@@ -1,4 +1,3 @@
-
 package screens;
 
 import audioplayer.Musics;
@@ -11,10 +10,12 @@ import static audioplayer.Musics.insertMusic;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -22,74 +23,81 @@ import org.json.simple.parser.ParseException;
  * @author joaovitordeon
  */
 public class InitialScreen extends javax.swing.JFrame {
+
     private final boolean vip;
     private static String username;
     private DefaultListModel dlm1;
     private static DefaultListModel dlm2;
     Musics m = new Musics();
     AddPlaylist playlists;
-    
-    public InitialScreen(boolean vip, String username) throws IOException, FileNotFoundException, ParseException {
+
+    public InitialScreen(boolean vip, String username)
+            throws IOException, FileNotFoundException, ParseException {
         this.vip = vip;
         InitialScreen.username = username;
-        
+
         initComponents();
-        
-        if(vip) updatePlaylistsList();
-        
-        if(!vip) addPlaylistBtn.setEnabled(false); 
-       
+
+        if (!vip) {
+            addPlaylistBtn.setEnabled(false);
+            btn_add_user.setEnabled(false);
+            addPlaylistBtn.setEnabled(false);
+        } else {
+            updatePlaylistsList();
+        }
+
         dlm1 = new DefaultListModel();
         refreshMusicsList();
-        
+
         user_name_label.setText(username);
         this.setVisible(true);
     }
-    //-----------------------------------------------------------------------------------
-    
-    public static void updatePlaylistsList() throws IOException, FileNotFoundException, ParseException{
-        dlm2 = new DefaultListModel(); 
-            ArrayList<String> array; 
+
+    public static void updatePlaylistsList() 
+            throws IOException, FileNotFoundException, ParseException {
+        dlm2 = new DefaultListModel();
+        ArrayList<String> array;
         array = getPlaylistsNames(username);
-            if(array != null){
-                for(String s: array){
-                    dlm2.addElement(s);
-                }
-                playlistsList.setModel(dlm2);
+        if (array != null) {
+            for (String s : array) {
+                dlm2.addElement(s);
             }
-    
+            playlistsList.setModel(dlm2);
+        }
     }
-    
-    private void refreshMusicsList() throws IOException, FileNotFoundException, ParseException{
+
+    private void refreshMusicsList() 
+            throws IOException, FileNotFoundException, ParseException {
         ArrayList<String> usermusics = getMusics();
-        
-        if(getMusics() != null){
+
+        if (getMusics() != null) {
             dlm1.clear();
-            
+
             for (String s : usermusics) {
                 this.dlm1.addElement(s);
             }
-        
+
             this.musicsList.setModel(dlm1);
         }
-    
+
     }
-    
-    private void updateMusicsList(String playlist_name) throws IOException, FileNotFoundException, ParseException{
+
+    private void updateMusicsList(String playlist_name) 
+            throws IOException, FileNotFoundException, ParseException {
         ArrayList<String> musics = getPlaylist(playlist_name);
-        
-        if(getMusics() != null){
+
+        if (getMusics() != null) {
             dlm1.clear();
-            
+
             for (String s : musics) {
                 this.dlm1.addElement(s);
             }
-        
+
             this.musicsList.setModel(dlm1);
         }
-    
+
     }
-    //--------------------------------------------------------------------------------------
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -113,6 +121,7 @@ public class InitialScreen extends javax.swing.JFrame {
         deleteBtn = new javax.swing.JButton();
         btn_pause = new javax.swing.JButton();
         allSongsBtn = new javax.swing.JButton();
+        btn_add_user = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AudioPlayer");
@@ -122,7 +131,6 @@ public class InitialScreen extends javax.swing.JFrame {
         setForeground(java.awt.Color.white);
 
         btn_play.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        btn_play.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/Play.gif")); // NOI18N
         btn_play.setText("Play");
         btn_play.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +139,6 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         btn_stop.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        btn_stop.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/Stop.gif")); // NOI18N
         btn_stop.setText("Stop");
         btn_stop.setEnabled(false);
         btn_stop.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +181,6 @@ public class InitialScreen extends javax.swing.JFrame {
         jScrollPane2.setViewportView(playlistsList);
 
         addMusicBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        addMusicBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/music_plus.png")); // NOI18N
         addMusicBtn.setText("Add Music");
         addMusicBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,7 +189,6 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         addDirecBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        addDirecBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/baker_add_dir.png")); // NOI18N
         addDirecBtn.setText("Add Direc");
         addDirecBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,7 +197,6 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         addPlaylistBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        addPlaylistBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/add.png")); // NOI18N
         addPlaylistBtn.setText("Add Playlist");
         addPlaylistBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,7 +205,6 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         signOutBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        signOutBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/exit.png")); // NOI18N
         signOutBtn.setText("Sing out");
         signOutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,11 +216,9 @@ public class InitialScreen extends javax.swing.JFrame {
         user_name_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         user_name_label.setText("User name");
 
-        profileImage.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/image2.png")); // NOI18N
         profileImage.setPreferredSize(new java.awt.Dimension(170, 170));
 
         deleteBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        deleteBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/delete.png")); // NOI18N
         deleteBtn.setText("Delete Music");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,7 +227,6 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         btn_pause.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        btn_pause.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/Pause.png")); // NOI18N
         btn_pause.setText("Pause");
         btn_pause.setEnabled(false);
         btn_pause.addActionListener(new java.awt.event.ActionListener() {
@@ -236,11 +236,17 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         allSongsBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        allSongsBtn.setIcon(new javax.swing.ImageIcon("/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/images/reload_all_tabs.png")); // NOI18N
         allSongsBtn.setText("Refresh songs");
         allSongsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 allSongsBtnActionPerformed(evt);
+            }
+        });
+
+        btn_add_user.setText("Adicionar Usuário");
+        btn_add_user.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_add_userActionPerformed(evt);
             }
         });
 
@@ -257,7 +263,7 @@ public class InitialScreen extends javax.swing.JFrame {
                             .addComponent(profileImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btn_play, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -266,7 +272,7 @@ public class InitialScreen extends javax.swing.JFrame {
                                 .addComponent(btn_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btn_next)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,7 +290,9 @@ public class InitialScreen extends javax.swing.JFrame {
                                     .addComponent(playlistsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
-                                .addComponent(user_name_label, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(user_name_label, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                                    .addComponent(btn_add_user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
@@ -317,16 +325,19 @@ public class InitialScreen extends javax.swing.JFrame {
                                 .addComponent(deleteBtn)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addPlaylistBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(addPlaylistBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_add_user, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
                             .addComponent(allSongsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(btn_play, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_pause, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_next, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_play, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_pause, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_next, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -337,26 +348,24 @@ public class InitialScreen extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle("Escolha varias músicas para serem adicionadas");
         chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        //chooser.setMultiSelectionEnabled(true);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int result = chooser.showOpenDialog(this);
-        if(result== JFileChooser.APPROVE_OPTION){
-             try {
+        if (result == JFileChooser.APPROVE_OPTION) {
+            try {
                 File f = chooser.getSelectedFile();
                 File[] filesList = f.listFiles();
-                 for (File file : filesList) {
-                     this.dlm1.addElement(file.getName());
-                     this.musicsList.setModel(dlm1);
-                     System.out.println(file.getName());
-                     System.out.println(file.getAbsolutePath());
-                     insertMusic(file.getName(),file.getAbsolutePath());
-                 }
+                for (File file : filesList) {
+                    if (insertMusic(file.getName(), file.getAbsolutePath())) {
+                        this.dlm1.addElement(file.getName());
+                        this.musicsList.setModel(dlm1);
+                        System.out.println(file.getName());
+                        System.out.println(file.getAbsolutePath());
+                    }
+                }
             } catch (IOException | ParseException ex) {
                 System.out.println(ex);
             }
-        
         }
-         
     }//GEN-LAST:event_addDirecBtnActionPerformed
 
     private void addMusicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMusicBtnActionPerformed
@@ -364,45 +373,43 @@ public class InitialScreen extends javax.swing.JFrame {
         fileChooser.setDialogTitle("Escolha a música a ser adicionada");
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         int result = fileChooser.showOpenDialog(this);
-//        String repeated_songs[] = null;
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
                 File selectedFile = fileChooser.getSelectedFile();
-                //pegar esse arquivo e jogar na playlist e usar o getName para 
-                //mostrar o nome na playlist
-                this.dlm1.addElement(selectedFile.getName());
-                this.musicsList.setModel(dlm1);
-                //adiciona a musica no json
-                insertMusic(selectedFile.getName(), selectedFile.getAbsolutePath());
-                System.out.println("Musica inserida");
-                
+                String filename = selectedFile.getName();
+
+                if (filename.substring(filename.lastIndexOf(".") + 1).equals("mp3")) {
+                    if (insertMusic(filename, selectedFile.getAbsolutePath())) {
+                        this.dlm1.addElement(filename);
+                        this.musicsList.setModel(dlm1);
+                        System.out.println("Musica inserida");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "O arquivo " + filename
+                            + " não é uma música", "Arquivo Inválido", INFORMATION_MESSAGE);
+                }
             } catch (IOException | ParseException ex) {
                 System.out.println(ex);
             }
-           
         }
     }//GEN-LAST:event_addMusicBtnActionPerformed
 
     private void btn_playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_playActionPerformed
-            
-        if(null != musicsList.getSelectedValue()){
+        if (null != musicsList.getSelectedValue()) {
             try {
-                if(m.getPaused() == false){
-                    if(m.getPlaying() == true)  m.stopMusic();
-                   
-                    m.playMusic( (String) musicsList.getSelectedValue());
-                    
+                if (m.getPaused() == false) {
+                    if (m.getPlaying() == true) {
+                        m.stopMusic();
+                    }
+                    m.playMusic((String) musicsList.getSelectedValue());
                     btn_stop.setEnabled(true);
                     btn_next.setEnabled(true);
                     btn_pause.setEnabled(true);
-                    
-                }
-                else{
+                } else {
                     btn_play.setEnabled(true);
                     m.resumeMusic();
                     m.setPausedStatus(false);
                 }
-
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
@@ -419,45 +426,37 @@ public class InitialScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_stopActionPerformed
 
     private void btn_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nextActionPerformed
-        int index=musicsList.getSelectedIndex();
-        
+        int index = musicsList.getSelectedIndex();
         try {
             m.stopMusic();
-            musicsList.setSelectedIndex(index+1);
-            m.playMusic( (String) musicsList.getSelectedValue());
+            musicsList.setSelectedIndex(index + 1);
+            m.playMusic((String) musicsList.getSelectedValue());
             btn_pause.setEnabled(true);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
     }//GEN-LAST:event_btn_nextActionPerformed
 
     private void addPlaylistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlaylistBtnActionPerformed
-         if(this.vip) {
-             
+        if (this.vip) {
             try {
                 playlists = new AddPlaylist(username);
-                
-            }catch (IOException | ParseException e){
-            
+            } catch (IOException | ParseException e) {
             }
-        }   
-            
+        }
     }//GEN-LAST:event_addPlaylistBtnActionPerformed
 
     private void musicsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_musicsListValueChanged
-       
+
     }//GEN-LAST:event_musicsListValueChanged
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        if(null != musicsList.getSelectedValue()){
-           try {
-              
-               deleteMusic(musicsList.getSelectedValue());
-               this.dlm1.removeElement(musicsList.getSelectedValue());
-               this.musicsList.setModel(dlm1);
-
+        if (null != musicsList.getSelectedValue()) {
+            try {
+                deleteMusic(musicsList.getSelectedValue());
+                this.dlm1.removeElement(musicsList.getSelectedValue());
+                this.musicsList.setModel(dlm1);
             } catch (IOException | ParseException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -466,8 +465,8 @@ public class InitialScreen extends javax.swing.JFrame {
 
     private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutBtnActionPerformed
         int dialogButton = JOptionPane.YES_NO_OPTION;
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Deseja sair do sistema?", "",dialogButton);
-        if(dialogResult == JOptionPane.YES_OPTION){
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Deseja sair do sistema?", "", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
             LoginScreen login = new LoginScreen();
             dispose();
         }
@@ -483,37 +482,39 @@ public class InitialScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_pauseActionPerformed
 
     private void playlistsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playlistsListMouseClicked
-        
         if (evt.getClickCount() == 2) {
             int index = playlistsList.locationToIndex(evt.getPoint());
             String str = (String) dlm2.getElementAt(index);
-            
             try {
                 updateMusicsList(str);
-                
-            }catch (IOException | ParseException e) {
-                
+            } catch (IOException | ParseException e) {
+                System.out.println(e);
             }
-            
         }
     }//GEN-LAST:event_playlistsListMouseClicked
 
     private void allSongsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allSongsBtnActionPerformed
         try {
             this.refreshMusicsList();
-            
-        }catch (IOException | ParseException e) {
-            
+        } catch (IOException | ParseException e) {
+            System.out.println(e);
         }
-        
     }//GEN-LAST:event_allSongsBtnActionPerformed
-   
-   
+
+    private void btn_add_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_userActionPerformed
+        AddUserScreen add_user = new AddUserScreen(this);
+        this.setEnabled(false);
+        add_user.setDefaultCloseOperation(AddUserScreen.DISPOSE_ON_CLOSE);
+        add_user.setVisible(true);
+    }//GEN-LAST:event_btn_add_userActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addDirecBtn;
     private javax.swing.JButton addMusicBtn;
     private javax.swing.JButton addPlaylistBtn;
     private javax.swing.JButton allSongsBtn;
+    private javax.swing.JButton btn_add_user;
     private javax.swing.JButton btn_next;
     private javax.swing.JButton btn_pause;
     private javax.swing.JButton btn_play;

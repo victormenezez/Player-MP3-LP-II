@@ -10,7 +10,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,15 +26,15 @@ import org.json.simple.parser.ParseException;
  */
 public class UserDAO {
 
-    private static final String PATH = "/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/data/users.json";
+    private static final String PATH = System.getProperty("user.dir") + "/src/data/users.json";
     private static ArrayList<String> playlists;
-    
-     public static void addPlaylistToUser(String username, String playlist_name)
+
+    public static void addPlaylistToUser(String username, String playlist_name)
             throws IOException, FileNotFoundException, ParseException {
 
         //array auxiliar 
-        ArrayList<String> aux = new ArrayList<String>();
-        
+        ArrayList<String> aux;
+
         JSONArray jarr;
         jarr = readUserJson();
         FileWriter writeFile;
@@ -41,7 +44,10 @@ public class UserDAO {
             //se possuir aquele username incrementa 
             if (obj.containsValue(username)) {
                 jarr.remove(i);
-                aux=(ArrayList<String>) obj.get("playlists");
+                aux = (ArrayList<String>) obj.get("playlists");
+                for(String s: aux){
+                    System.out.println(s);
+                }
                 aux.add(playlist_name);
                 obj.remove("playlists");
                 obj.put("playlists", aux);
@@ -53,27 +59,27 @@ public class UserDAO {
         writeFile = new FileWriter(PATH);
         JSONArray.writeJSONString(jarr, writeFile);
         writeFile.close();
-        
+
     }
-     
-    public static ArrayList<String> getPlaylistsNames(String username) throws IOException, FileNotFoundException, ParseException{
-        
-        ArrayList<String> aux = new ArrayList<String>();
+
+    public static ArrayList<String> getPlaylistsNames(String username) throws IOException, FileNotFoundException, ParseException {
+
+        ArrayList<String> aux;
         JSONArray jarr;
         jarr = readUserJson();
-        
-         for (int i = 0; i < jarr.size(); i++) {
+
+        for (int i = 0; i < jarr.size(); i++) {
             JSONObject obj = (JSONObject) jarr.get(i);
             //se possuir aquele username incrementa 
             if (obj.containsValue(username)) {
-                aux=(ArrayList<String>) obj.get("playlists");
+                aux = (ArrayList<String>) obj.get("playlists");
                 return aux;
-            }   
+            }
         }
-         
-        return null; 
+
+        return null;
     }
-    //------------------------------------------------------------------------------------------- 
+
     public static JSONArray readUserJson()
             throws FileNotFoundException, IOException, ParseException {
 
@@ -101,7 +107,7 @@ public class UserDAO {
             throws IOException, FileNotFoundException, ParseException {
         //vetor das playlists inicia vazio quando se cria um user
         playlists = new ArrayList<>();
-        
+
         JSONObject jsonObject = new JSONObject();
         JSONArray jarr;
         jarr = readUserJson();
@@ -127,13 +133,14 @@ public class UserDAO {
         JSONArray.writeJSONString(jarr, writeFile);
         writeFile.close();
     }
+
     public static void deleteUser(String username)
             throws IOException, FileNotFoundException, ParseException {
 
         JSONObject jsonObject = new JSONObject();
         JSONArray jarr;
         jarr = readUserJson();
-        FileWriter writeFile=null;
+        FileWriter writeFile;
 
         for (int i = 0; i < jarr.size(); i++) {
             JSONObject obj = (JSONObject) jarr.get(i);
@@ -146,6 +153,25 @@ public class UserDAO {
         writeFile = new FileWriter(PATH);
         JSONArray.writeJSONString(jarr, writeFile);
         writeFile.close();
+    }
+
+    public static boolean hasUser(String username) 
+            throws IOException {
+        try {
+            JSONArray jarr = readUserJson();
+
+            for (int i = 0; i < jarr.size(); i++) {
+                JSONObject obj = (JSONObject) jarr.get(i);
+                //se possuir aquele username incrementa 
+                if (obj.containsValue(username)) {
+                    JOptionPane.showMessageDialog(null, "Este nome de usuário já existe!\nTente outro.", "Usuário existente", ERROR_MESSAGE);
+                    return false;
+                }
+            }
+        } catch (FileNotFoundException | ParseException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
 }

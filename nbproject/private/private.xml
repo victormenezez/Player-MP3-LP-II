@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/audioplayer/UserDAO.java</file>
-            <file>file:/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/audioplayer/Audioplayer.java</file>
-            <file>file:/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/screens/InitialScreen.java</file>
-            <file>file:/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/screens/AddPlaylist.java</file>
-            <file>file:/home/joaovitordeon/NetBeansProjects/Player-MP3-LP-II/src/audioplayer/Musics.java</file>
+            <file>file:/home/victor/Documentos/workspace/UFRN/LP-II/Player-MP3-LP-II/src/audioplayer/Audioplayer.java</file>
+            <file>file:/home/victor/Documentos/workspace/UFRN/LP-II/Player-MP3-LP-II/src/audioplayer/Musics.java</file>
+            <file>file:/home/victor/Documentos/workspace/UFRN/LP-II/Player-MP3-LP-II/src/data/musics.json</file>
+            <file>file:/home/victor/Documentos/workspace/UFRN/LP-II/Player-MP3-LP-II/src/screens/InitialScreen.java</file>
+            <file>file:/home/victor/Documentos/workspace/UFRN/LP-II/Player-MP3-LP-II/src/audioplayer/UserDAO.java</file>
+            <file>file:/home/victor/Documentos/workspace/UFRN/LP-II/Player-MP3-LP-II/src/data/users.json</file>
         </group>
     </open-files>
 </project-private>

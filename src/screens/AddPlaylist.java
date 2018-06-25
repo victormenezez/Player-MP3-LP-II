@@ -125,9 +125,9 @@ public class AddPlaylist extends javax.swing.JFrame {
   
     private void create_playlist_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_create_playlist_btnActionPerformed
         
-        String playlist_name = (String) playlist_name_input.getText() ;
+        playlist_name = (String) playlist_name_input.getText() ;
         List<String> aux1 = playlist_list.getSelectedValuesList();
-        ArrayList<String> aux2 = new ArrayList<String>(aux1);
+        ArrayList<String> aux2 = new ArrayList<>(aux1);
         
         if(playlist_name.length() == 0 || playlist_list.isSelectionEmpty() == true  ){
             JOptionPane.showMessageDialog(this, "Voce precisa colocar um nome e selecionar musicas.", "OPS...Esta faltando algo!", ERROR_MESSAGE);
@@ -136,9 +136,11 @@ public class AddPlaylist extends javax.swing.JFrame {
         else{    
             try{
                
-                insertPlaylist( playlist_name , aux2 );
-                addPlaylistToUser( username, playlist_name);
-                updatePlaylistsList();
+                if(insertPlaylist(playlist_name , aux2 )){
+                    System.out.println(username + " "+ playlist_name);
+                    addPlaylistToUser(username, playlist_name);
+                    updatePlaylistsList();
+                }
                 
                 dispose();
 

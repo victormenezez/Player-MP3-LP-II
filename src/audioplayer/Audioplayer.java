@@ -21,12 +21,12 @@ public class Audioplayer {
 //        LoginScreen login_screen = new LoginScreen();
 //        login_screen.setVisible(true);
 
-        InitialScreen i = new InitialScreen(true,"rw");
+        InitialScreen i = new InitialScreen(true,"root");
         try {
 //            printMusicJson();
 //            insertMusic("musica6");
 //            printMusicJson();
-            addUser("rw","12e",1);
+//            addUser("rw","12e",1);
             addUser("rr","12e",1);
         } catch (IOException | NullPointerException | ParseException e) {
             System.out.println(e + " oh");
