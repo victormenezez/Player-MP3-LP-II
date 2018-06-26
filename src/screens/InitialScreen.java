@@ -10,7 +10,6 @@ import static audioplayer.Musics.insertMusic;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -19,8 +18,10 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import org.json.simple.parser.ParseException;
 
 /**
- *
- * @author joaovitordeon
+ * Tela inicial
+ * 
+ * @author Joao Vitor
+ * @author Victor Gomes
  */
 public class InitialScreen extends javax.swing.JFrame {
 
@@ -31,6 +32,15 @@ public class InitialScreen extends javax.swing.JFrame {
     Musics m = new Musics();
     AddPlaylist playlists;
 
+    /**
+     * Cria um novo form InitialScreen
+     * 
+     * @param vip Se o usuario e vip ou nao
+     * @param username Nome do usuario
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ParseException 
+     */
     public InitialScreen(boolean vip, String username)
             throws IOException, FileNotFoundException, ParseException {
         this.vip = vip;
@@ -350,6 +360,11 @@ public class InitialScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Adiciona um diretorio de musicas
+     * 
+     * @param evt 
+     */
     private void addDirecBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDirecBtnActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle("Escolha varias músicas para serem adicionadas");
@@ -374,6 +389,11 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addDirecBtnActionPerformed
 
+    /**
+     * Adicona uma musica
+     * 
+     * @param evt 
+     */
     private void addMusicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMusicBtnActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Escolha a música a ser adicionada");
@@ -400,6 +420,11 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addMusicBtnActionPerformed
 
+    /**
+     * Inicia a execucao da musica selecionada
+     * 
+     * @param evt 
+     */
     private void btn_playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_playActionPerformed
         if (null != musicsList.getSelectedValue()) {
             try {
@@ -422,6 +447,11 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_playActionPerformed
 
+    /**
+     * Para por completo a execucao da musica selecionada
+     * 
+     * @param evt 
+     */
     private void btn_stopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_stopActionPerformed
         try {
             m.stopMusic();
@@ -444,6 +474,11 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_nextActionPerformed
 
+    /**
+     * Adiciona uma nova playlist
+     * 
+     * @param evt 
+     */
     private void addPlaylistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlaylistBtnActionPerformed
         if (this.vip) {
             try {
@@ -457,6 +492,11 @@ public class InitialScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_musicsListValueChanged
 
+    /**
+     * Deleta do sistema a musica selecionada
+     * 
+     * @param evt 
+     */
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         if (null != musicsList.getSelectedValue()) {
             try {
@@ -469,6 +509,11 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
+    /**
+     * Executa o Logout do usuario no sistema
+     * 
+     * @param evt 
+     */
     private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutBtnActionPerformed
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(null, "Deseja sair do sistema?", "", dialogButton);
@@ -478,6 +523,11 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_signOutBtnActionPerformed
 
+    /**
+     * Pausa a musica em execucao
+     * 
+     * @param evt 
+     */
     private void btn_pauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pauseActionPerformed
         try {
             m.pauseMusic();
@@ -487,6 +537,11 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_pauseActionPerformed
 
+    /**
+     * Atualiza a lista de musicas para as musicas existentes na playlist selecionada
+     * 
+     * @param evt 
+     */
     private void playlistsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playlistsListMouseClicked
         if (evt.getClickCount() == 2) {
             int index = playlistsList.locationToIndex(evt.getPoint());
@@ -499,6 +554,11 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_playlistsListMouseClicked
 
+    /**
+     * Atualiza a lista de musicas para todas as musicas existentes no sistema
+     * 
+     * @param evt 
+     */
     private void allSongsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allSongsBtnActionPerformed
         try {
             this.refreshMusicsList();
@@ -507,6 +567,11 @@ public class InitialScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_allSongsBtnActionPerformed
 
+    /**
+     * Adiciona um novo usuario
+     * 
+     * @param evt 
+     */
     private void btn_add_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_userActionPerformed
         AddUserScreen add_user = new AddUserScreen(this);
         this.setEnabled(false);

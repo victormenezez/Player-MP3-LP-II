@@ -14,15 +14,26 @@ import org.json.simple.parser.ParseException;
 import static screens.InitialScreen.updatePlaylistsList;
 
 /**
+ * Tela para adicionar uma nova playlist
  *
- * @author joaovitordeon
+ * @author Joao Vitor
+ * @author Victor Gomes
  */
 public class AddPlaylist extends javax.swing.JFrame {
     private final ArrayList<String> musics;
     private String playlist_name;
     private String username;
     
-    public AddPlaylist(String username) throws IOException, FileNotFoundException, ParseException {
+    /**
+     * Cria um novo form AddPlaylist
+     * 
+     * @param username nome do usuario logado
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ParseException 
+     */
+    public AddPlaylist(String username) 
+            throws IOException, FileNotFoundException, ParseException {
         initComponents();
         
         this.username=username;
