@@ -136,7 +136,7 @@ public class InitialScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AudioPlayer");
         setBackground(new java.awt.Color(255, 115, 138));
-        setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFocusCycleRoot(false);
         setForeground(java.awt.Color.white);
 
@@ -437,6 +437,7 @@ public class InitialScreen extends javax.swing.JFrame {
                     btn_next.setEnabled(true);
                     btn_pause.setEnabled(true);
                 } else {
+                    btn_play.setEnabled(true);
                     btn_play.setEnabled(true);
                     m.resumeMusic();
                     m.setPausedStatus(false);

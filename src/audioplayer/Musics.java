@@ -33,7 +33,6 @@ public class Musics {
     private boolean paused = false;
     public long duration_song;
     public long pause_position;
-    private String current_music_playing = "";
 
     /**
      * Altera o valor da variavel paused
