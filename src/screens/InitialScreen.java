@@ -131,7 +131,7 @@ public class InitialScreen extends javax.swing.JFrame {
         setForeground(java.awt.Color.white);
 
         btn_play.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        btn_play.setText("Play");
+        btn_play.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/play-arrow.png"))); // NOI18N
         btn_play.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_playActionPerformed(evt);
@@ -139,7 +139,7 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         btn_stop.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        btn_stop.setText("Stop");
+        btn_stop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Stop.gif"))); // NOI18N
         btn_stop.setEnabled(false);
         btn_stop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +148,7 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         btn_next.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        btn_next.setText(">> Next");
+        btn_next.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fast-forward-arrows.png"))); // NOI18N
         btn_next.setEnabled(false);
         btn_next.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,11 +164,11 @@ public class InitialScreen extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(musicsList);
 
-        musicsLabel.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        musicsLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         musicsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         musicsLabel.setText("Musics");
 
-        playlistsLabel.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        playlistsLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         playlistsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         playlistsLabel.setText("Playlists");
 
@@ -181,7 +181,7 @@ public class InitialScreen extends javax.swing.JFrame {
         jScrollPane2.setViewportView(playlistsList);
 
         addMusicBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        addMusicBtn.setText("Add Music");
+        addMusicBtn.setText("Adicionar Música");
         addMusicBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addMusicBtnActionPerformed(evt);
@@ -189,7 +189,7 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         addDirecBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        addDirecBtn.setText("Add Direc");
+        addDirecBtn.setText("Adicionar pasta");
         addDirecBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addDirecBtnActionPerformed(evt);
@@ -197,7 +197,7 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         addPlaylistBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        addPlaylistBtn.setText("Add Playlist");
+        addPlaylistBtn.setText("Criar Playlist");
         addPlaylistBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addPlaylistBtnActionPerformed(evt);
@@ -205,21 +205,21 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         signOutBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        signOutBtn.setText("Sing out");
+        signOutBtn.setText("Sair");
         signOutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signOutBtnActionPerformed(evt);
             }
         });
 
-        user_name_label.setFont(new java.awt.Font("Serif", 3, 14)); // NOI18N
+        user_name_label.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         user_name_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         user_name_label.setText("User name");
 
         profileImage.setPreferredSize(new java.awt.Dimension(170, 170));
 
         deleteBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        deleteBtn.setText("Delete Music");
+        deleteBtn.setText("Deletar Música");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteBtnActionPerformed(evt);
@@ -227,7 +227,7 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         btn_pause.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        btn_pause.setText("Pause");
+        btn_pause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Pause.png"))); // NOI18N
         btn_pause.setEnabled(false);
         btn_pause.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,13 +236,14 @@ public class InitialScreen extends javax.swing.JFrame {
         });
 
         allSongsBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        allSongsBtn.setText("Refresh songs");
+        allSongsBtn.setText("Ver todas as músicas");
         allSongsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 allSongsBtnActionPerformed(evt);
             }
         });
 
+        btn_add_user.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         btn_add_user.setText("Adicionar Usuário");
         btn_add_user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,31 +256,26 @@ public class InitialScreen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(611, 611, 611)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(signOutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(profileImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(btn_play, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_pause, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_next, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(addDirecBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                            .addComponent(addMusicBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                            .addComponent(deleteBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_play, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_pause, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_next)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(deleteBtn)
-                                    .addComponent(addDirecBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(addMusicBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(41, 41, 41)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(musicsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
@@ -292,9 +288,17 @@ public class InitialScreen extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(user_name_label, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                                    .addComponent(btn_add_user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(btn_add_user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(signOutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(profileImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(43, 43, 43))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_next, btn_pause, btn_play, btn_stop});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -309,7 +313,7 @@ public class InitialScreen extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(playlistsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(musicsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
+                            .addComponent(musicsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,15 +325,15 @@ public class InitialScreen extends javax.swing.JFrame {
                                 .addComponent(addMusicBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(addDirecBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(deleteBtn)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(addPlaylistBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btn_add_user, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
+                                .addComponent(btn_add_user, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(allSongsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -337,8 +341,10 @@ public class InitialScreen extends javax.swing.JFrame {
                         .addComponent(btn_pause, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn_next, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_next, btn_pause, btn_play, btn_stop});
 
         pack();
         setLocationRelativeTo(null);

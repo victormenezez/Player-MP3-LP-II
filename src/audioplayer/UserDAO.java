@@ -55,7 +55,6 @@ public class UserDAO {
                 break;
             }
         }
-
         writeFile = new FileWriter(PATH);
         JSONArray.writeJSONString(jarr, writeFile);
         writeFile.close();
